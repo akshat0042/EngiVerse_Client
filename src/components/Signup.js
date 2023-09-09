@@ -1,4 +1,5 @@
 import { useState } from "react";
+<<<<<<< HEAD
 import axios, { Axios } from "axios";
 import {useNavigate} from "react-router-dom";
 // import {ReCAPTCHA} from "react-google-recaptcha";
@@ -18,10 +19,24 @@ const Signup = ()=>{
 
     let res
     
+=======
+import axios from "axios"
+
+const Signup = ()=>{
+    const [data,setData] = useState({
+        Name:'',
+        Username:'',
+        Email:'',
+        Phone:'',
+        Password:''
+    })
+
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     const [rePass,setRePass] = useState({
         repass:""
     })
 
+<<<<<<< HEAD
     const [passMatch,setPassMatch]=useState(true)
     const [valFName,setValFName]=useState(false)
     const [valLName,setValLName]=useState(false)
@@ -54,10 +69,20 @@ const Signup = ()=>{
             console.log(e)
         }
       
+=======
+    const [passMatch,setPassMatch]=useState(true) //initially password does not match
+
+    const Loggin = async()=>{
+        await axios.post("http://localhost:5000/user/Signup",data).then(()=>{
+            window.location.reload(false)
+            console.log(data)
+        })
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     }
 
     const ValidatePass = async(event)=>{
         event.preventDefault()
+<<<<<<< HEAD
         const currentYear = new Date().getDate();
         
         // year=currentYear-year
@@ -69,10 +94,16 @@ const Signup = ()=>{
             console.log("YEEETTTTTTTTTTTTT")
             setPassMatch(true)
             
+=======
+        if(rePass.repass===data.Password){
+            console.log("YEEETTTTTTTTTTTTT")
+            setPassMatch(true)
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
         }
         else{
             setPassMatch(false)
         }
+<<<<<<< HEAD
 
         if(data.fName===""){
             setValFName(true)
@@ -158,12 +189,47 @@ const Signup = ()=>{
                 <input type="password" name="password" value={data.password} onChange={(event)=>{
                     setData({...data,password:event.target.value})
                 }}/><br/>
+=======
+    }
+
+    return(
+        <>
+            <form>
+                <lable>Name</lable>
+                <input type="text" name="name" value={data.Name} onChange={(event)=>{
+                    setData({...data,Name:event.target.value})
+                }}/>
+                
+                <lable>Username</lable>
+                <input type="text" name="username" value={data.Username} onChange={(event)=>{
+                    setData({...data,Username:event.target.value})
+                }}/>
+
+                <lable>Email</lable>
+                <input type="email" name="Email" placeholder="xyz@email.com" value={data.Email} onChange={(event)=>{
+                    setData({...data,Email:event.target.value})
+                }}/>
+                
+                <lable>Phone</lable>
+                <input type="number" name="phone" value={data.Phone} onChange={(event)=>{
+                    setData({...data,Phone:event.target.value})
+                }}/>
+
+                <label>Password</label>
+                <input type="password" name="password" value={data.Password} onChange={(event)=>{
+                    setData({...data,Password:event.target.value})
+                }}/>
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
 
                 <label>Re-enter Password</label>
                 <input type="password" name="repass" value={rePass.repass} onChange={(event)=>{
                     setRePass({...rePass,repass:event.target.value})
+<<<<<<< HEAD
                 }}/><br/>
 
+=======
+                }}/>
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
                 {passMatch?(<div></div>):(<div>not match</div>)}
                 <button onClick={ValidatePass}>Signup</button>
             </form>

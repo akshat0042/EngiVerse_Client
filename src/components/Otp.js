@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios" //helps in communicating with server
+<<<<<<< HEAD
 import {useNavigate} from "react-router-dom";
 
 
@@ -16,6 +17,19 @@ const Otp=()=>{
 
     let res
 
+=======
+
+const Otp=()=>{
+    const [data,setData] = useState({
+        phone:''
+    })
+
+    const [verify,setVerify] = useState({
+        phone:sessionStorage.getItem("num"),
+        otp:""
+    })
+
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     const [click,setClick] = useState(true)
 
     const OTPP = async(event)=>{
@@ -24,7 +38,11 @@ const Otp=()=>{
             // window.location.reload(false) //stops page from auto reloading
             console.log(data)
         })
+<<<<<<< HEAD
         setVerify({...verify, phone:data.phone})
+=======
+        sessionStorage.setItem("num",data.phone)
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
         console.log(data)
         setClick(false)
     }
@@ -44,6 +62,10 @@ const Otp=()=>{
         catch(e){
 
         }
+        await axios.post("http://localhost:5000/user/verify",verify).then(()=>{ //comunicate with url
+            // window.location.reload(false) //stops page from auto reloading
+            console.log(verify)
+        })
     }
     return(
         <>

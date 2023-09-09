@@ -7,8 +7,12 @@ const Login = ()=>{
         Password:''
     })
 
+<<<<<<< HEAD
     const Loggin = async(event)=>{
         event.preventDefault()
+=======
+    const Loggin = async()=>{
+>>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
         await axios.post("http://localhost:5000/user/Login",data).then(()=>{
             window.location.reload(false)
             console.log(data)
