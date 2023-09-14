@@ -1,9 +1,6 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import axios, { Axios } from "axios";
 import {useNavigate} from "react-router-dom";
-// import {ReCAPTCHA} from "react-google-recaptcha";
-
 
 const Signup = ()=>{
     const navigate =useNavigate()
@@ -11,7 +8,7 @@ const Signup = ()=>{
         fName:'',
         lName:'',
         userName:'',
-        phone:'',
+        phone:sessionStorage.getItem("phone"),
         password:'',
         gender:'',
         dob:''
@@ -19,32 +16,19 @@ const Signup = ()=>{
 
     let res
     
-=======
-import axios from "axios"
-
-const Signup = ()=>{
-    const [data,setData] = useState({
-        Name:'',
-        Username:'',
-        Email:'',
-        Phone:'',
-        Password:''
-    })
-
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     const [rePass,setRePass] = useState({
         repass:""
     })
 
-<<<<<<< HEAD
     const [passMatch,setPassMatch]=useState(true)
-    const [valFName,setValFName]=useState(false)
-    const [valLName,setValLName]=useState(false)
-    const [valUName,setValUName]=useState(false)
-
-    const [valdob,setValdob]=useState(false) //initially password does not match
-    // const [hCaptcha,sethCaptcha]=useState(false)
-
+    const [firstNameError, setFirstNameError] = useState(""); 
+    const [lastNameError, setlastNameError] = useState("");
+    const [userNameError, setUserNameError] = useState("");
+    const [dobError, setdobError] = useState("");
+    const [genderError, setGenderError] = useState("");
+    const [passError, setPassError] = useState("");
+    const [ageError, setAgeError] = useState("");
+    
     const aurthAxios=axios.create({
         baseURL:"http://localhost:5000/",
         headers:{
@@ -52,97 +36,115 @@ const Signup = ()=>{
         }
     })
 
-    const Loggin = async()=>{
-        // event.preventDefault()
+   
+
+    const Loggin = async(event)=>{
+        event.preventDefault()
+        console.log(data)
+        console.log(sessionStorage.getItem("phone"))
         
         try{
-            res =await aurthAxios.post("http://localhost:5000/user/Signup",data).then(()=>{
-            window.location.reload(false)
+            res = await aurthAxios.post("http://localhost:5000/user/Signup",data)
+            // window.location.reload(false)
             console.log(data)
+            console.log(res)
             if(res.status===200){
                 navigate("/login")
-            
             }
-        })
         }
         catch(e){
             console.log(e)
         }
       
-=======
-    const [passMatch,setPassMatch]=useState(true) //initially password does not match
-
-    const Loggin = async()=>{
-        await axios.post("http://localhost:5000/user/Signup",data).then(()=>{
-            window.location.reload(false)
-            console.log(data)
-        })
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     }
 
-    const ValidatePass = async(event)=>{
-        event.preventDefault()
-<<<<<<< HEAD
-        const currentYear = new Date().getDate();
+    const calculateAge = (birthdate) => {
+        const today = new Date();
+        const birthDate = new Date(birthdate);
+        const age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        console.log(age)
         
-        // year=currentYear-year
-        // console.log(year)
-        setData({...data,phone:sessionStorage.getItem("phone")})
-        console.log(data)
-        Loggin()
-        if(rePass.repass===data.password){
-            console.log("YEEETTTTTTTTTTTTT")
-            setPassMatch(true)
-            
-=======
-        if(rePass.repass===data.Password){
-            console.log("YEEETTTTTTTTTTTTT")
-            setPassMatch(true)
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          return age - 1;
         }
-        else{
-            setPassMatch(false)
-        }
-<<<<<<< HEAD
+        
+        return age;
+      };
 
-        if(data.fName===""){
-            setValFName(true)
-        }
-        else{
-            setValFName(false)
-        }
+    const Validate = async(event)=>{
+        // event.preventDefault()
+ 
+        
 
-        if(data.lName===""){
-            setValLName(true)
-        }
-        else{
-            setValLName(false)
-        }
+        // if (data.fName === "") {
+        //     setFirstNameError("First name is required");
+        //     return; 
+        // } 
+        // else {
+        //     setFirstNameError(""); 
+        // }
 
-        if(data.userName===""){
-            setValUName(true)
-        }
-        else{
-            setValUName(false)
-        }
-        if(data.dob===""){
-            setValdob(true)
-        }
-        else{
-            setValdob(false)
-        }
+        // if (data.lName === "") {
+        //     setlastNameError("last name is required");
+        //     return; 
+        // } 
+        // else {
+        //     setlastNameError(""); 
+        // }
+        // if (data.userName === "") {
+        //     setUserNameError("user name is required");
+        //     return; 
+        // } 
+        // else {
+        //     setUserNameError(""); 
+        // }
+        // if (data.dob === "") {
+        //     setdobError("date of birth is required");
+        //     return; 
+        // } 
+        // else {
+        //     setdobError(""); 
+        // }
+
+        // const age = calculateAge(data.dob);
+        // if (age < 18) {
+        //     setAgeError("You must be at least 18 years old to sign up.");
+        //     return;
+        // } 
+        // else {
+        //     setAgeError("");
+        // }
+
+        // if (data.gender === "") {
+        //     setGenderError("gender is required");
+        //     return; 
+        // } 
+        // else {
+        //     setGenderError(""); 
+        // }
+
+        // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.?&])[A-Za-z\d@$!%*.?&]{8,}$/;
+        // if (!passwordRegex.test(data.password)) {
+        //   setPassError("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.");
+        //   return;
+        // } else {
+        //   setPassError("");
+        // }
+
+
+        // if(rePass.repass===data.password){
+        //     console.log("YEEETTTTTTTTTTTTT")
+        //     setPassMatch(true)
+        // }
+        // else{
+        //     setPassMatch(false)
+        //     return
+        // }
+
+         Loggin()
     }
 
-    // const ValidateHuman = async(event)=>{
-    //     event.preventDefault()
-    //     alert("please enter the captcha")
-    //     if(hCaptcha===false){
-    //         alert("please enter the captcha")
-    //     }
-    //     else{
-    //         alert("verification succesfull")
-    //     }
-    // }
 
     return(
         <>
@@ -150,20 +152,23 @@ const Signup = ()=>{
                 <lable>First Name</lable>
                 <input type="text" name="name" value={data.fName} onChange={(event)=>{
                     setData({...data,fName:event.target.value})
-                }}/><br/>  
-                {valFName?(<div>enter a Firstname</div>):(<div></div>)}
+                }}/>
+                <span style={{ color: "red" }}>{firstNameError}</span>
+                <br/>  
 
                 <lable>Last Name</lable>
                 <input type="text" name="name" value={data.lName} onChange={(event)=>{
                     setData({...data,lName:event.target.value})
-                }}/><br/>
-                {valLName?(<div>enter a Lastname</div>):(<div></div>)}
+                }}/>
+                <span style={{ color: "red" }}>{lastNameError}</span>
+                <br/>
                 
                 <lable>Username</lable>
                 <input type="text" name="username" value={data.userName} onChange={(event)=>{
                     setData({...data,userName:event.target.value})
-                }}/><br/>
-                {valUName?(<div>enter a Valid username</div>):(<div></div>)}
+                }}/>
+                <span style={{ color: "red" }}>{userNameError}</span>
+                <br/>
                 
                 <label>gender :</label>
                 <label>male</label>
@@ -177,61 +182,34 @@ const Signup = ()=>{
                 <label>rather not say</label>
                 <input type="radio" name="gender" value="Rather not say" onChange={(event)=>{
                     setData({...data,gender:event.target.value})
-                }}></input><br/>
+                }}></input>
+                <span style={{ color: "red" }}>{genderError}</span>
+                
+                <br/>
                 
                 <label>Date of Birth</label>
                 <input type="date" name="DOB" value={data.dob} onChange={(event)=>{
                     setData({...data,dob:event.target.value})
-                }}></input><br/>
-                {valdob?(<div>enter a valid date</div>):(<div></div>)}
+                }}></input>
+                <span style={{ color: "red" }}>{dobError}</span>
+                <span style={{ color: "red" }}>{ageError}</span>
+                
+                <br/>
 
                 <label>Password</label>
                 <input type="password" name="password" value={data.password} onChange={(event)=>{
                     setData({...data,password:event.target.value})
-                }}/><br/>
-=======
-    }
-
-    return(
-        <>
-            <form>
-                <lable>Name</lable>
-                <input type="text" name="name" value={data.Name} onChange={(event)=>{
-                    setData({...data,Name:event.target.value})
                 }}/>
-                
-                <lable>Username</lable>
-                <input type="text" name="username" value={data.Username} onChange={(event)=>{
-                    setData({...data,Username:event.target.value})
-                }}/>
-
-                <lable>Email</lable>
-                <input type="email" name="Email" placeholder="xyz@email.com" value={data.Email} onChange={(event)=>{
-                    setData({...data,Email:event.target.value})
-                }}/>
-                
-                <lable>Phone</lable>
-                <input type="number" name="phone" value={data.Phone} onChange={(event)=>{
-                    setData({...data,Phone:event.target.value})
-                }}/>
-
-                <label>Password</label>
-                <input type="password" name="password" value={data.Password} onChange={(event)=>{
-                    setData({...data,Password:event.target.value})
-                }}/>
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
+                <span style={{ color: "red" }}>{passError}</span>
+                <br/>
 
                 <label>Re-enter Password</label>
                 <input type="password" name="repass" value={rePass.repass} onChange={(event)=>{
                     setRePass({...rePass,repass:event.target.value})
-<<<<<<< HEAD
                 }}/><br/>
 
-=======
-                }}/>
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
                 {passMatch?(<div></div>):(<div>not match</div>)}
-                <button onClick={ValidatePass}>Signup</button>
+                <button onClick={Loggin}>Signup</button>
             </form>
         </>
     )

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios" //helps in communicating with server
-<<<<<<< HEAD
 import {useNavigate} from "react-router-dom";
 
 
@@ -17,35 +16,37 @@ const Otp=()=>{
 
     let res
 
-=======
-
-const Otp=()=>{
-    const [data,setData] = useState({
-        phone:''
-    })
-
-    const [verify,setVerify] = useState({
-        phone:sessionStorage.getItem("num"),
-        otp:""
-    })
-
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
     const [click,setClick] = useState(true)
+    const [phoneError, setPhoneError] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+
+
+    const handleInputFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleInputBlur = () => {
+        setIsFocused(false);
+    };
+
 
     const OTPP = async(event)=>{
         event.preventDefault()
+        if (/^\d{10}$/.test(data.phone)) {
+            setPhoneError("");
+          } else {
+            setPhoneError("Phone number must be exactly 10 digits.");
+            return;
+          }
         await axios.post("http://localhost:5000/user/otp",data).then(()=>{ //comunicate with url
             // window.location.reload(false) //stops page from auto reloading
             console.log(data)
         })
-<<<<<<< HEAD
         setVerify({...verify, phone:data.phone})
-=======
-        sessionStorage.setItem("num",data.phone)
->>>>>>> a6fa22614af9b4a55c5fa6c10117065766c3bc53
-        console.log(data)
+        // console.log(data)
         setClick(false)
     }
+
 
     const ver = async(event)=>{
         event.preventDefault()
@@ -71,17 +72,18 @@ const Otp=()=>{
         <>
             <form>
                 <label>Number : </label>
-                <input type="text" value={data.phone} onChange={(event)=>{
+                <input type="text" className={"border-2"} value={data.phone} onChange={(event)=>{
                     setData({...data,phone:event.target.value})
                 }}></input>
+                <div style={{ color: "red" }}>{phoneError}</div>
                 {click?(<div></div>):(<div>
                     <label>Otp : </label>
-                    <input type="text"value={verify.otp} onChange={(event)=>{
+                    <input type="text" className={"border-2"} value={verify.otp} onChange={(event)=>{
                         setVerify({...verify,otp:event.target.value})
                     }} ></input>
-                    <button onClick={ver}>verify otp</button>
+                    <button className={"border-2"} onClick={ver}>verify otp</button>
                 </div>)}
-                {click?(<div><button onClick={OTPP}>Send OTP</button></div>):(<div></div>)}
+                {click?(<div><button className={"border-2"} onClick={OTPP}>Send OTP</button></div>):(<div></div>)}
             </form>
         </>
     )

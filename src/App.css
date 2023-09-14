@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+/* src/App.css */
+.section-a {
+  --translate-x: 0;
+  background-color: #00ff2f; /* Blue color for section A */
+}
+
+.section-b {
+  --translate-x: 0;
+  background-color: #ff0000; /* Red color for section B */
+}
+
