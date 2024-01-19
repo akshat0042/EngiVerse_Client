@@ -3,6 +3,7 @@ import axios, { Axios } from "axios";
 import {useNavigate} from "react-router-dom";
 import logo from "../images/logo.png"
 import Random from "../images/random.jpg"
+import Otp from './Otp'
 
 const Signup = ()=>{
     const navigate =useNavigate()
@@ -153,6 +154,14 @@ const Signup = ()=>{
     return(
         <>
             <div className="w-full h-screen items-start">
+                {/* <div className="z-100">
+                    <Otp/>
+                </div> */}
+                <div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md fit rounded-xl"}>
+                    <div className={"p-8 rounded-lg relative z-10"}>
+                        <Otp/>
+                    </div>
+                 </div>
 
                 <div className="absolute right-4">
                         <img src={logo} alt="Logo" className="w-50 h-50" />
@@ -266,84 +275,6 @@ const Signup = ()=>{
                 <img src={Random} className='w-full h-full'/>
                 </div>
                  
-            
-            {/* <div className="text-left">
-                                <lable className="block text-lg font-medium text-black">First Name</lable>
-                                <input type="text" name="name" value={data.userName} className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" onChange={(event)=>{
-                                    setData({...data,fName:event.target.value})
-                                }}/><br/>
-                                <span style={{ color: "red" }}>{userNameError}</span>
-                                
-                                <br/>
-                                <label className="block text-lg font-medium text-black">Password</label>
-                                <input type="password" value={data.password} className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" onChange={(event)=>{
-                                    setData({...data,password:event.target.value})
-                                }}/><br/>
-                                <span style={{ color: "red" }}>{passError}</span>
-                                <br/>
-                                </div>
-            
-            <form>
-                <lable></lable>
-                <input   />
-                <span style={{ color: "red" }}>{firstNameError}</span>
-                <br/>  
-
-                <lable>Last Name</lable>
-                <input type="text" name="name" value={data.lName} onChange={(event)=>{
-                    setData({...data,lName:event.target.value})
-                }}/>
-                <span style={{ color: "red" }}>{lastNameError}</span>
-                <br/>
-                
-                <lable>Username</lable>
-                <input type="text" name="username" value={data.userName} onChange={(event)=>{
-                    setData({...data,userName:event.target.value})
-                }}/>
-                <span style={{ color: "red" }}>{userNameError}</span>
-                <br/>
-                
-                <label>gender :</label>
-                <label>male</label>
-                <input type="radio" name="gender" value="male" onChange={(event)=>{
-                    setData({...data,gender:event.target.value})
-                }}></input>
-                <label>female</label>
-                <input type="radio" name="gender" value="female" onChange={(event)=>{
-                    setData({...data,gender:event.target.value})
-                }}></input>
-                <label>rather not say</label>
-                <input type="radio" name="gender" value="Rather not say" onChange={(event)=>{
-                    setData({...data,gender:event.target.value})
-                }}></input>
-                <span style={{ color: "red" }}>{genderError}</span>
-                
-                <br/>
-                
-                <label>Date of Birth</label>
-                <input type="date" name="DOB" value={data.dob} onChange={(event)=>{
-                    setData({...data,dob:event.target.value})
-                }}></input>
-                <span style={{ color: "red" }}>{dobError}</span>
-                <span style={{ color: "red" }}>{ageError}</span>
-                
-                <br/>
-
-                <label>Password</label>
-                <input type="password" name="password" value={data.password} onChange={(event)=>{
-                    setData({...data,password:event.target.value})
-                }}/>
-                <span style={{ color: "red" }}>{passError}</span>
-                <br/>
-
-                <label>Re-enter Password</label>
-                <input type="password" name="repass" value={rePass.repass} onChange={(event)=>{
-                    setRePass({...rePass,repass:event.target.value})
-                }}/><br/>
-
-                {passMatch?(<div></div>):(<div>not match</div>)}
-                <button onClick={Loggin}>Signup</button>
-            </form> */}
         </>
     )
 }
