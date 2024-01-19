@@ -1,0 +1,45 @@
+@media (max-width: 1044px) {
+    .absolute {
+        /* Adjust the width and height when the viewport width is below 1044px */
+        /* width: 80vw;  Set your desired width
+         height:75vh; 
+        transform: translateX(-50%) translateY(-50%);
+        top: 50%;
+        left: 50%; */
+    }
+}
+
+@media (max-width: 900px) {
+    .right-sidebar {
+      display: none;
+    }
+  }
+
+  .chat-item {
+    background-color: transparent; /* Set the default background color */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .chat-item:hover {
+    background-color: #434343; /* Change the background color on hover */
+  }
+
+  .fade-in-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .surrounding-div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 50%), max(600px, 50%)));
+};
+.first-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-column-gap: 1rem;
+}
+.second-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
+    grid-column-gap: 1rem;
+}

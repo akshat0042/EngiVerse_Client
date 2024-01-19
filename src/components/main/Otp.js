@@ -57,7 +57,6 @@ const Otp=()=>{
                 sessionStorage.setItem("token",res.data.token)
                 sessionStorage.setItem("phone",data.phone)
                 navigate("/signup")
-                // console.log("yeeee") REMOVE
             }
         }
         catch(e){
@@ -68,6 +67,7 @@ const Otp=()=>{
             console.log(verify)
         })
     }
+    
     return(
         <>
             <form>
