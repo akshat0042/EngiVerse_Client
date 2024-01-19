@@ -9,9 +9,21 @@ import image5 from "../images/qwer.png";
 import image6 from "../images/rgsdfgsdfg.jpg";
 import '../others/media.css';
 import Side from './searchbar'
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+
 
 const MainE = () => {
-  
+    function valuetext(value) {
+        return `${value}°C`;
+      }
+      
+         const [value, setValue] = React.useState([20, 37000]);
+      
+        const handleChange = (event, newValue) => {
+          setValue(newValue);
+        };
+      
     // Function to handle slideshow animation
     const token=sessionStorage.getItem("token")
 
@@ -63,7 +75,7 @@ const nextSlide = () => {
 
 return (
         <div className="flex flex-row">
-            <div className="w-48 bg-slate-400 h-screen flex flex-col p-1">
+            <div className="w-48 bg-[#292A2B] h-screen flex flex-col p-1">
                 
                 <div className="h-16 w-full p-2">
                     {/* <img src={logo}></img> */}
@@ -91,27 +103,30 @@ return (
                         </li>
                     </ul>
                 </div>
-                <div className="flex justify-center text-sm">
+                <div className=" p-3 flex flex-col justify-center text-sm">
                     <label>
                         Ranges: 
                     </label>
-                    
-                        <select name="range">
-                            <option value="100-200">100-200</option>
-                            <option value="100-200">200-300</option>
-                            <option value="100-200">400-600</option>
-                            <option value="100-200">600-1000</option>
-                        </select>
+                    <Box sx={{ width: 130 }}>
+                        <Slider
+                            getAriaLabel={() => 'price range'}
+                            value={value}
+                            onChange={handleChange}
+                            valueLabelDisplay="auto"
+                            getAriaValueText={valuetext}
+                            max={50000}
+                        />
+                        </Box>
                 </div>
             </div>
 
             <div className="flex flex-col w-screen h-screen bg-neutral-600">
             <Side/>
 
-                <div className="h-full w-full p-3 bg-orange-300 overflow-y-auto">
+                <div className="h-full w-full p-3 bg-[#B9B9B9] overflow-y-auto">
                     <div className="flex flex-row slideshow h-[30rem]">
                         <button
-                            className="top-[16rem] left-[13rem] w-[10%] bg-white p-2 rounded-full"
+                            className="top-[16rem] left-[13rem] w-[10%] bg-[#B9B9B9] p-2 rounded-full"
                             onClick={prevSlide}
                         >
                             Previous
@@ -127,7 +142,7 @@ return (
                             ))}
                         </div>
                         <button
-                            className="bg-white top-[16rem] w-[10%] right-[2rem] p-2 rounded-full"
+                            className="bg-[#B9B9B9] top-[16rem] w-[10%] right-[2rem] p-2 rounded-full"
                             onClick={nextSlide}
                         >
                             <MdNavigateNext />
@@ -135,7 +150,7 @@ return (
                     </div>
                     <div className="ml-4 mt-24 grid grid-cols-4 gap-4 md:grid-cols-2">
                         {prod.map((item)=>(
-                            <div className="h-[27rem] w-[17rem] m-2 bg-lime-500 rounded-lg border border-gray-500 shadow-xl relative flex flex-col">
+                            <div className="h-[27rem] w-[17rem] m-2 bg-[#e8e8e8] rounded-lg border border-gray-500 shadow-2xl relative flex flex-col">
                                 <div className="h-[17rem] w-full bg-slate-950 rounded-lg">
                                     <div className="h-fit w-fit">
                                         {/* <img src={mjolnir}></img> */}

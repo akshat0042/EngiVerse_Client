@@ -12,7 +12,7 @@ import Chatmain from "./components/chat/Chatmain";
 import Indipro from"./components/ecom/indiproduct";
 import MainE from "./components/ecom/MainE";
 import Cart from "./components/ecom/cart";
-
+import Settings from "./components/others/settings";
 const App = ()=> {
   return(
     <Router>
@@ -31,6 +31,7 @@ const App = ()=> {
           <Route path="/indip" element={<Indipro/>}></Route>
           <Route path="/Ecom" element={<MainE/>}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
+          <Route path="/setting" element={<Settings/>}></Route>
         </Routes>
       </div>
     </Router>

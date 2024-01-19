@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 const Cart = () =>{
     const [quantity, setQuantity] = useState(1);
-
+    const [isDeleted, setIsDeleted] = useState(false);
 
     const handleIncrease = () => {
       setQuantity(quantity + 1);
@@ -16,6 +16,12 @@ const Cart = () =>{
         setQuantity(quantity - 1);
       }
     };
+
+    const handleDelete = () => {
+        console.log("haha")
+      };
+    
+
     return(
         <div className="flex flex-col h-screen w-screen">
          <div> <Side/></div>   
@@ -38,8 +44,8 @@ const Cart = () =>{
               <div>
                 <p className="text-lg font-semibold">$20</p>
               </div>
-              <div className="ml-11 mt-2">
-                <button><MdDelete /></button>
+              <div className="delete ml-11 mt-2">
+              <button onClick={handleDelete}><MdDelete /></button>
               </div>
             </div>
    

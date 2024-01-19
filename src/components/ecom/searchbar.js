@@ -2,10 +2,10 @@ import { useState,useEffect } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import pr from "../images/A.jpg"
-
+import {useNavigate} from "react-router-dom";
 
 const Side=()=>{
-
+const navigate =useNavigate()
 const [prof, setProf] = useState(false);
 const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -13,6 +13,15 @@ const profile = (e) => {
   setProf(!prof);
   setPosition({ x: e.clientX, y: e.clientY });
 };
+
+const sett=()=>{
+    navigate("/setting")
+}
+
+const signout=()=>{
+    navigate("/login")
+    sessionStorage.clear()
+}
     return(
         <div className=" flex flex-row h-20 p-4 w-full bg-white">
                     <input
@@ -23,10 +32,7 @@ const profile = (e) => {
                     <div className=" flex flex-row w-[10rem] p-1">
                         
                         <div className="w-1/2">
-                        <button
-                        className="profile bg-black rounded-full text-white w-9 h-9"
-                        onClick={profile}
-                        >
+                        <button className="profile bg-black rounded-full text-white w-9 h-9" onClick={profile}>
                         <CgProfile />
                         </button>
                         </div>
@@ -48,9 +54,9 @@ const profile = (e) => {
                                 </div>
                             </div>
                             <div className="flex flex-col h-3/5 rounded-lg p-1 gap-y-1">
-                                <div className="h-1/3 bg-white shadow-xl">order history</div>
-                                <div className="h-1/3 bg-white shadow-xl">setting</div>
-                                <div className="h-1/3 bg-white shadow-xl"> sign-out</div>
+                                <button className="h-1/3 bg-white shadow-xl">order history</button>
+                                <button className="h-1/3 bg-white shadow-xl" onClick={sett}>setting</button>
+                                <button className="h-1/3 bg-white shadow-xl" onClick={signout}> sign-out</button>
                             </div>
                         </div>
                     )}
