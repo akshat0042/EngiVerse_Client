@@ -33,6 +33,7 @@ const Signup = ()=>{
     const [genderError, setGenderError] = useState("");
     const [passError, setPassError] = useState("");
     const [ageError, setAgeError] = useState("");
+    const [mod, setMod] = useState(true);
     
     const aurthAxios=axios.create({
         baseURL:"http://localhost:5000/",
@@ -154,20 +155,17 @@ const Signup = ()=>{
     return(
         <>
             <div className="w-full h-screen items-start">
-                {/* <div className="z-100">
-                    <Otp/>
-                </div> */}
-                <div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md fit rounded-xl"}>
+                {/* {mod?<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md fit rounded-xl"}>
                     <div className={"p-8 rounded-lg relative z-10"}>
                         <Otp/>
                     </div>
-                 </div>
+                 </div>:<></>}  */}
 
                 <div className="absolute right-4">
                         <img src={logo} alt="Logo" className="w-50 h-50" />
                 </div>
 
-                <div className=' absolute top-[12%] rounded-lg left-[10%] transition-transform duration-500 h-[75%] w-[40%] backdrop-blur-md'>
+                <div className=' absolute top-[12%] rounded-lg left-[10%] transition-transform duration-500 h-[78%] w-[40%] backdrop-blur-md'>
                     <div className="flex flex-col h-full">
                         <div className='text-4xl  font-momcake mt-4'>
                             Sign-Up

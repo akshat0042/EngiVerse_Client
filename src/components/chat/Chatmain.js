@@ -2,6 +2,8 @@ import React, { useEffect, useRef,  useState } from "react";
 import axios from "axios"
 import '../others/media.css';
 import {useNavigate} from "react-router-dom";
+import photo from "../images/random.jpg"
+import { RxExit } from "react-icons/rx";
 
 const Chatmain = () => {
   const navigate =useNavigate()
@@ -13,14 +15,14 @@ const Chatmain = () => {
           Authorization: `Bearer ${token}`,
       },
     });
+    
+    const [data,setData]=useState({
+      gtype:'', 
+  })
 
   const chatRef = useRef(null);
   
   const [chat,setChat]=useState([])
-  // useEffect(() => {
-  //   // Scroll to the bottom when the component mounts
-  //   chatRef.current.scrollIntoView({ behavior: "instant" });
-  // }, []);
 
   const [isHovered, setIsHovered] = useState(false);
   
@@ -41,7 +43,12 @@ const Chatmain = () => {
   const [chatId,setChatId]=useState([])
   const [chatName,setChatName]=useState([])
   const [fetchChat,setFetchChat]=useState([])
-
+  const [exploreCom,setExploreCom]=useState(false)
+  const [createGrp,setCreategrp]=useState(false)
+  const [showList,setShowList]=useState(false)
+  const [listV,setListV]=useState(false)
+  
+  
   const handelChatClick=(chatId,name)=>{
     console.log(name)
     sessionStorage.setItem("chatId",chatId)
@@ -55,6 +62,16 @@ const Chatmain = () => {
     data:""
   });
 
+  const frndList=()=>{
+    if(data.gtype!="0"){
+      console.log("cal")
+      setListV(true)
+    }
+  }
+
+  useEffect(()=>{
+    frndList()
+  },[data.gtype])
   const sendMessage = async () => {
     // if (newMessage.trim() === "") {
     //     return;
@@ -70,6 +87,18 @@ const Chatmain = () => {
         console.error("Error sending message:", error);
     }
   };
+
+  const exp =()=>{
+    setExploreCom(!exploreCom)
+  }
+
+  const grp =()=>{
+    setCreategrp(!createGrp)
+  }
+
+  const list =()=>{
+    setShowList(!showList)
+  }
 
   const handleKeyDown = (event) => {
       if (event.key === 'Enter') {
@@ -93,30 +122,30 @@ const Chatmain = () => {
             <div className={"flex flex-row"}>
               <div className={`w-14 h-screen bg-[#141414] top-0 left-0 flex flex-col-reverse`}>
                 <div className=" space-y-2">
-                  <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`}>
-                    gc<br/>
+                  <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`} onClick={grp}>
+                    +<br/>
+                  </button>
+                  <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`} onClick={exp}>
+                    Explor<br/>
                   </button>
                   <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`}>
-                    gc<br/>
-                  </button>
-                  <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`}>
-                    gc<br/>
+                    set<br/>
                   </button>
                   <button className={`w-12 rounded-full center h-12 bg-[#313338]  -ml-2`} onClick={ecomm}>
                     ecom<br/>
                   </button>
                 </div>
                 <div className=" flex h-full flex-col">
-                  <div className={`w-12 rounded-full center h-12 bg-[#313338] mt-3 -ml-2 ${isHovered ? 'hovered' : ''}`}
+                  <button className={`w-12 rounded-full center h-12 bg-[#313338] mt-3 -ml-2 ${isHovered ? 'hovered' : ''}`}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
                     gc<br/>
-                  </div>
-                  <div className={`w-12 rounded-full h-12 bg-[#313338] mt-3 -ml-2 ${isHovered ? 'hovered' : ''}`}
+                  </button>
+                  <button className={`w-12 rounded-full h-12 bg-[#313338] mt-3 -ml-2 ${isHovered ? 'hovered' : ''}`}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
                     gc<br/>
-                </div>
+                </button>
                 </div>
                 {/* {isHovered && (
                   <div className="absolute top-0 left-0 text-black mt-3 ml-14">
@@ -160,7 +189,7 @@ const Chatmain = () => {
                                     <div>
                                         <span
                                             className="px-4 py-2 inline-block rounded-tl-lg rounded-r-lg bg-gray-200 text-gray-600">
-                                            ligma balls
+                                            hiii
                                         </span>
                                     </div>
                                 </div>
@@ -189,6 +218,92 @@ const Chatmain = () => {
                     </div>
                 </div> */}
             </div>
+            {/* model */}
+            {exploreCom?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
+                <div className={"flex flex-col bg-gray-800 h-[90%] w-[90%] p-2 rounded-lg shadow-lg relative z-10"} >
+                    <div className="h-[10%] bg-[#ffffff]"> Explore community</div>
+                    <div className="h-[80%] mt-2  bg-[#ffffff] overflow-y-auto flex flex-wrap">
+                      
+                      <div className="h-[17rem] ml-2 w-[15rem] flex flex-col mt-2 hover:shadow-2xl transition-all duration-150 ease-linear bg-red-500">
+                        <div className="h-[43%] bg-black">
+                            <img src={photo}></img>
+                        </div>
+                        <div className="h-[57%] flex flex-col-reverse bg-white">
+                            <div className="h-7 p-[.2rem] flex flex-row bg-slate-500">
+                              <div className="w-[6rem] bg-white text-left"> members</div>
+                              <div className="w-[6rem] ml-[.2rem] text-left bg-white">online</div>
+                            </div>
+                            <div className="h-full flex flex-col m-[.2rem] bg-stone-700"> 
+                              <div className="mt-3 h-7 bg-white">
+                                  name
+                              </div>
+                              <div className=" h-full text-left bg-white">
+                                  disc
+                              </div>
+                            </div>
+                        </div>
+                        <div className="fixed p-[.2rem] z-10 mt-[6.2rem] rounded-lg ml-[.6rem] h-[2.5rem] w-[2.5rem] bg-fuchsia-700">
+                          <div className=" h-full w-full bg-white rounded-lg">  </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div className="h-[7%] mt-2 bg-white" onClick={exp}> <RxExit /></div>
+                </div>
+            </div>):(<></>)
+            }
+
+            {createGrp?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
+                <div className={"bg-gray-800 flex flex-col h-[90%] w-[90%] p-[.3rem] rounded-lg shadow-lg relative z-10"} >
+                    <div className="h-[40%] rounded-t-md bg-slate-400">
+
+                    </div>
+                    <div className="h-[60%] flex flex-row bg-white">
+                      <div className="w-7/12 flex flex-col bg-slate-300">
+                        <div className="h-[2.6rem] bg-black"></div>
+                        <div className="h-[4rem] bg-red-500 flex flex-row">
+                          <div className="w-1/3 p-1 bg-green-200 flex flex-col">
+                            <div className="text-left text-lg ">name</div>
+                            <input type="text" className=" h-full text-[1.10rem]"></input>
+                          </div>
+                          <div className="w-1/3 p-1 bg-green-100 flex flex-col" >
+                            <label className=" text-lg text-left">type</label>
+                            <select name="cars" id="cars" value={data.gtype} onChange={(event)=>{
+                                setData({...data,gtype:event.target.value})
+                            }}>
+                              <option value="0">please select any one</option>
+                              <option value="private">private</option>
+                              <option value="Public">public all</option>
+                              <option values="f">Friends</option>
+                              <option values="f&f">Friends of friends</option>
+                              <option values="invite only">invite only</option>
+                            </select>
+                          </div>
+                          <div className="w-1/3 flex flex-col p-1 bg-green-300" >
+                            <label className=" text-lg text-left overflow-y-hidden">Add people </label>
+                            <button disabled={listV} className={`bg-green-500 disabled:opacity-40 rounded-lg shadow-xl`} onClick={list}>show list</button>
+                          </div>
+                        </div>
+                        <div className="h-[17.71rem] flex flex-col p-1 bg-orange-600">
+                          <label className="mt-1 text-left">Description</label>
+                          <textarea className="h-full rounded-md"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="fixed p-[.2rem] z-10  rounded-lg mt-[12rem] ml-[2.5rem] h-[5rem] w-[5rem] bg-fuchsia-700">
+                      <div className=" h-full w-full bg-white rounded-lg">  </div>
+                  </div>
+                </div>
+                
+            </div>):(<></>)
+
+            }
+
+            {showList?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm"}>
+                <div className={"bg-gray-800 p-8 rounded-lg shadow-lg relative z-10"} onClick={list}>
+                    no
+                </div>
+            </div>):(<></>)}
         </div>
   );
 };
