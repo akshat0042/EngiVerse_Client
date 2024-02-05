@@ -14,6 +14,10 @@ const profile = (e) => {
   setPosition({ x: e.clientX, y: e.clientY });
 };
 
+const Cart=()=>{
+    navigate("/cart")
+}
+
 const sett=()=>{
     navigate("/setting")
 }
@@ -37,7 +41,7 @@ const signout=()=>{
                         </button>
                         </div>
                         <div className="w-1/2 flex items-center justify-center">
-                            <button className=" bg-black rounded-full  text-white w-9 h-9"><FaCartShopping /></button>
+                            <button className=" bg-black rounded-full  text-white w-9 h-9" onClick={Cart}><FaCartShopping /></button>
                         </div>
                         {prof && (
                         <div

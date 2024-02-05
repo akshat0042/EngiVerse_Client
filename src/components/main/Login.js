@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios"
 import {useNavigate} from "react-router-dom";
-import back from "../images/t.png"
+import back from "../images/hehe.png"
 import logo from "../images/logo.png"
 import '../others/media.css';
 import babla from "../images/download.jpg"
@@ -71,16 +71,12 @@ const Login = ()=>{
     return(
         <>
             <div className="flex bg-slate-500 h-screen w-screen items-center justify-center">
-                    <div className=" fixed ml-[24rem] mt-[6.5rem] backdrop-blur-sm shadow-2xl rounded-lg h-3/4 w-[60%]  flex flex-row">
-                        <div className="w-[40%] h-full  rounded-l-lg flex flex-col">
-                            <div className="h-2/4 rounded-l-lg"></div>
-                            <img src={babla} className=' w-full h-full'/>
-                            <div className="h-2/4 rounded-l-lg"></div>
-                        </div>                        
-                        <div className="w-[60%] h-full  flex flex-col rounded-r-lg">
-                            <div className="h-24 mt-10 text-4xl text-sky-50 text-center rounded-tr-lg">
+                    <div className=" fixed ml-[30rem] mt-[6.5rem] backdrop-blur-sm shadow-2xl rounded-lg h-3/4 w-[40%]">
+                                                
+                        <div className="h-full  flex flex-col rounded-r-lg">
+                            <label className="h-24 bold mt-10 text-4xl text-sky-50 text-center rounded-tr-lg">
                                 LOGIN
-                            </div>
+                            </label>
                             <div className="h-full  p-10 rounded-br-lg">
                                 
                                 <label for="input-group-1" class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Username</label>

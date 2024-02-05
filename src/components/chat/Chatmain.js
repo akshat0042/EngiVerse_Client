@@ -3,7 +3,9 @@ import axios from "axios"
 import '../others/media.css';
 import {useNavigate} from "react-router-dom";
 import photo from "../images/random.jpg"
+import back from "../images/hehe.png"
 import { RxExit } from "react-icons/rx";
+import { MdEdit } from "react-icons/md";
 
 const Chatmain = () => {
   const navigate =useNavigate()
@@ -47,6 +49,7 @@ const Chatmain = () => {
   const [createGrp,setCreategrp]=useState(false)
   const [showList,setShowList]=useState(false)
   const [listV,setListV]=useState(false)
+  const [isHoveredProfilePic, setIsHoveredProfilePic] = useState(false);
   
   
   const handelChatClick=(chatId,name)=>{
@@ -119,8 +122,9 @@ const Chatmain = () => {
   
   return (
     <div>
-            <div className={"flex flex-row"}>
-              <div className={`w-14 h-screen bg-[#141414] top-0 left-0 flex flex-col-reverse`}>
+      <div className={"flex flex-row h-screen w-screen"}>
+      <div className=" flex flex-row h-full w-full z-10 ">
+            <div className={`w-14  h-screen bg-[#232E3E] top-0 left-0 flex flex-col-reverse`}>
                 <div className=" space-y-2">
                   <button className={`w-12 rounded-full center h-12 bg-[#313338] -ml-2`} onClick={grp}>
                     +<br/>
@@ -154,26 +158,26 @@ const Chatmain = () => {
                 )} */}
               </div>
 
-                <div className={"flex flex-col h-screen w-72 "}>
-                    <div className={" text-center p-2 bg-[#4a4c50] border-b border-r border-[#2c2e30] "}>
+                <div className={"flex flex-col h-screen w-72 backdrop-blur-yeet "}>
+                    <div className={" text-center p-2 bg-[#232e3e]  bg-opacity-90 border-b border-r border-[#2c2e30] "}>
                         <div>
-                          <input type="text" id="website-admin" class="bg-gray-50 border border-gray-300 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[13rem] p-1.5  dark:bg-[#232e3e] dark:border-gray-700 dark:placeholder-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                          <input type="text" id="website-admin" class="bg-gray-50 border opacity-80 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[13rem] p-1.5  dark:bg-[#24304e] dark:border-gray-700 dark:placeholder-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                     </div>
-                    <div className={"bg-[#4a4c50] h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
-                        {chat.map((data)=>(<div className="chat-item haha text-lg w-full mt-2 h-10 px-2 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
+                    <div className={"bg-[#232E3E] bg-opacity-85 h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
+                        {chat.map((data)=>(<div className="chat-item  text-lg w-full mt-2 h-10 px-2 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
                           {data.users[1].firstName}
                         </div>))}
                         
                     </div>
                 </div>
                 <div className={"flex flex-col w-screen"}>
-                    <div className={"bg-[#2B2D31] p-[0.80rem] shadow-2xl text-white w-full text-center"} >
+                    <div className={"bg-gradient-to-r from-[#232e3e] to-[#333333] opacity-80 p-[0.80rem] shadow-2xl text-white w-full text-center"} >
                         {sessionStorage.getItem("name")?(<div>
                           {sessionStorage.getItem("name")}
                         </div>):(null)}
                     </div>
-                    <div className={"bg-[#292a2b] h-full w-full flex flex-col-reverse p-3"}>
+                    <div className={" h-[92.5%] backdrop-blur-yeet hover:backdrop-blur-sm w-full flex flex-col-reverse p-3"}>
                         <div className="flex">
                             <input placeholder="Type your message..."
                               className="focus:ring-gray-900 bg-[#202C33] focus:border-gray-900 w-full focus:placeholder-gray-400 text-gray-100 placeholder-gray-300 pl-10 rounded-full py-3 border-gray-200"
@@ -182,7 +186,7 @@ const Chatmain = () => {
                               onKeyDown={handleKeyDown}
                             />
                         </div>
-                        <div className={"p-3 shadow-2xl  mb-4 h-full w-full overflow-y-auto"}>
+                        <div className={"p-3 shadow-lg hover:shadow-2xl transition-shadow mb-4 h-full w-full overflow-y-auto no-scrollbar"}>
                             <div className="flex items-end">
                                 <div
                                     className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
@@ -199,9 +203,10 @@ const Chatmain = () => {
                                 <div
                                     className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-end">
                                     <div>
-                                      <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-[#0e7a06] text-white">
-                                        {data.content[0]}<br/>
-                                      </span>
+                                        <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-[#0e7a06] text-white">
+                                          {data.content[0]}<br/>
+                                        </span>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -217,9 +222,11 @@ const Chatmain = () => {
                         asdasdasd
                     </div>
                 </div> */}
-            </div>
-            {/* model */}
-            {exploreCom?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
+      </div>
+      <img src={back} className=' object-cover fixed w-screen h-screen'/>
+      </div>
+      {/* model */}
+      {exploreCom?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
                 <div className={"flex flex-col bg-gray-800 h-[90%] w-[90%] p-2 rounded-lg shadow-lg relative z-10"} >
                     <div className="h-[10%] bg-[#ffffff]"> Explore community</div>
                     <div className="h-[80%] mt-2  bg-[#ffffff] overflow-y-auto flex flex-wrap">
@@ -255,9 +262,14 @@ const Chatmain = () => {
 
             {createGrp?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
                 <div className={"bg-gray-800 flex flex-col h-[90%] w-[90%] p-[.3rem] rounded-lg shadow-lg relative z-10"} >
-                    <div className="h-[40%] rounded-t-md bg-slate-400">
-
+                  <div className={`h-[40%] ${isHoveredProfilePic ? 'opacity-75 ' : 'group-hover:opacity-75'} rounded-t-md bg-slate-400`} onMouseEnter={() => setIsHoveredProfilePic(true)} onMouseLeave={() => setIsHoveredProfilePic(false)}>
+                  {isHoveredProfilePic && (
+                    <div className=" top-0 left-0 right-0 bottom-0 h-full bg-black opacity-75  flex items-center justify-center text-white cursor-pointer">
+                    <span><MdEdit /></span>
                     </div>
+                  )}
+                    </div>
+                    
                     <div className="h-[60%] flex flex-row bg-white">
                       <div className="w-7/12 flex flex-col bg-slate-300">
                         <div className="h-[2.6rem] bg-black"></div>
@@ -290,8 +302,11 @@ const Chatmain = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="fixed p-[.2rem] z-10  rounded-lg mt-[12rem] ml-[2.5rem] h-[5rem] w-[5rem] bg-fuchsia-700">
+                    <div className="fixed p-[.2rem] z-10 rounded-lg mt-[12.5rem] ml-[3.2rem] h-[5rem] w-[5rem] bg-fuchsia-700">
                       <div className=" h-full w-full bg-white rounded-lg">  </div>
+                    </div>
+                  <div className=" fixed h-5 w-5 bg-white ml-2 mt-1 " onClick={grp}>
+                          
                   </div>
                 </div>
                 
@@ -304,7 +319,7 @@ const Chatmain = () => {
                     no
                 </div>
             </div>):(<></>)}
-        </div>
+    </div>
   );
 };
 

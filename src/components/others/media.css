@@ -21,7 +21,8 @@
   }
   
   .chat-item:hover {
-    background-color: #434343; /* Change the background color on hover */
+    background-color: #9CA3AF; /* Change the background color on hover */
+    opacity: 0.90;
   }
 
   .fade-in-out {
@@ -42,4 +43,17 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 150px);
     grid-column-gap: 1rem;
+}
+
+.backdrop-blur-yeet {
+  --tw-backdrop-blur: blur(1px);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.bg-opacity-85 {
+  --tw-bg-opacity: 0.85;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

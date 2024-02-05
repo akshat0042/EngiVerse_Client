@@ -2,8 +2,11 @@ import image from '../images/qwer.png'
 import { MdDelete } from "react-icons/md";
 import Side from './searchbar'
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import { CgWebsite } from "react-icons/cg";
 
 const Cart = () =>{
+    const navigate =useNavigate()
     const [quantity, setQuantity] = useState(1);
     const [isDeleted, setIsDeleted] = useState(false);
 
@@ -21,6 +24,9 @@ const Cart = () =>{
         console.log("haha")
       };
     
+      const ecom=()=>{
+        navigate("/ecom")
+      }
 
     return(
         <div className="flex flex-col h-screen w-screen">
@@ -75,21 +81,17 @@ const Cart = () =>{
                             
                             <div className="mb-4 text-left text-sm">
                                 <h2 className="text-sm font-semibold mb-2">Address</h2>
-                                <textarea type="textarea" placeholder="Enter your address" className="w-full border p-2 rounded"/>
+                                <textarea type="textarea" placeholder="Enter your address" className="w-full border p-2 rounded h-44"/>
                             </div>
                         </div>
-                        
-
-                        
-
                         <div className="flex justify-center px-16">
                             <button className="bg-green-500 text-white px-2 py-2 rounded">Check Out</button>
                         </div>
                     </div>
-                
-
             </div>
-
+          <div className=' fixed top-[5.4rem] right-[2rem] rounded-full h-[3rem] w-[3rem] bg bg-black' onClick={ecom}>
+          <CgWebsite />
+          </div>
         </div>
         </div>
     )
