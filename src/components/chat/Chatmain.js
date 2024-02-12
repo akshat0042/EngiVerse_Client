@@ -64,7 +64,7 @@ const Chatmain = () => {
   }
 
   const [newMessage, setNewMessage] = useState({
-    data:""
+    content:""
   });
   // console.log(listV)
   const handleChatTypeChange = (event) => {
@@ -99,7 +99,7 @@ const Chatmain = () => {
         console.log(res)
         fetchMsg(chatId);
         // socket.emit("new message",res.data)
-        setNewMessage((prevMessage) => ({ ...prevMessage, data: '' }));
+        setNewMessage((prevMessage) => ({ ...prevMessage, content: '' }));
     } catch (error) {
         console.error("Error sending message:", error);
     }
@@ -173,14 +173,14 @@ const Chatmain = () => {
                 )} */}
               </div>
 
-                <div className={"flex flex-col h-screen w-72 backdrop-blur-yeet "}>
-                    <div className={" text-center p-2 bg-[#232e3e]  bg-opacity-90 border-b border-r border-[#2c2e30] "}>
+                <div className={"flex flex-col h-screen w-72 "}>
+                    <div className={" text-center p-2 bg-[#232e3e] border-b border-r border-[#2c2e30] "}>
                         <div>
                           <input type="text" id="website-admin" class="bg-gray-50 border opacity-80 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[13rem] p-1.5  dark:bg-[#24304e] dark:border-gray-700 dark:placeholder-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                     </div>
-                    <div className={"bg-[#232E3E] bg-opacity-85 h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
-                        {chat.map((data)=>(<div className="chat-item  text-lg w-full mt-2 h-10 px-2 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
+                    <div className={"bg-[#232E3E]  h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
+                        {chat.map((data)=>(<div  className="yeetfont chat-item  text-lg w-full mt-2 h-10 px-2 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
                           {data.users[1].firstName}
                         </div>))}
                         
@@ -196,8 +196,8 @@ const Chatmain = () => {
                         <div className="flex">
                             <input placeholder="Type your message..."
                               className="focus:ring-gray-900 bg-[#202C33] focus:border-gray-900 w-full focus:placeholder-gray-400 text-gray-100 placeholder-gray-300 pl-10 rounded-full py-3 border-gray-200"
-                              value={newMessage.data}
-                              onChange={(event)=>{setNewMessage({ data: event.target.value })}}
+                              value={newMessage.content}
+                              onChange={(event)=>{setNewMessage({ content: event.target.value })}}
                               onKeyDown={handleKeyDown}
                             />
                         </div>
@@ -207,7 +207,7 @@ const Chatmain = () => {
                           
                             {fetchChat.map((data)=>(
                               <div>
-                              {data.status?(<div className="flex items-end">
+                              {!data.status?(<div className="flex items-end">
                                 <div
                                     className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
                                     <div>

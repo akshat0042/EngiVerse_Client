@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500&display=swap');
 
 .App {
   text-align: center;
@@ -51,4 +52,5 @@
   --translate-x: 0;
   background-color: #ff0000; /* Red color for section B */
 }
+
 

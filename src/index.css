@@ -23,3 +23,7 @@ code {
 .section-b:hover {
   transform: translateX(var(--translate-x, 0));
 }
+
+.yeetfont{
+  font-family: 'Source Serif 4', serif;
+}
