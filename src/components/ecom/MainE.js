@@ -7,6 +7,14 @@ import image3 from "../images/t.png";
 import image4 from "../images/back.jpeg";
 import image5 from "../images/qwer.png";
 import image6 from "../images/rgsdfgsdfg.jpg";
+import rod from "../images/rod.jpg"
+import Screws from "../images/screws.webp"
+import Thermal from "../images/thermal.webp"
+import Arduino from "../images/ardiuno.webp"
+import Driller from "../images/driller.webp"
+import wires from "../images/wires.webp"
+import piews from "../images/pipes.webp"
+import grills from "../images/grill.webp"
 import '../others/media.css';
 import Side from './searchbar'
 import Box from '@mui/material/Box';
@@ -18,11 +26,12 @@ const MainE = () => {
         return `${value}°C`;
       }
       
-         const [value, setValue] = React.useState([20, 37000]);
+    const [value, setValue] = React.useState([20, 37000]);
+    const [imageSrc, setImageSrc] = useState("");
       
-        const handleChange = (event, newValue) => {
-          setValue(newValue);
-        };
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
       
     // Function to handle slideshow animation
     const token=sessionStorage.getItem("token")
@@ -40,7 +49,7 @@ const MainE = () => {
       const req= async()=>{ 
         try{
           const res=await authAxios.post("/admin/productShow")
-          console.log(res)
+        //   console.log(res)
           setProd(res.data.data) 
         }catch(e){
     
@@ -50,8 +59,36 @@ const MainE = () => {
       useEffect(()=>{
         req()
       },[])
+      
 
-    
+    let imgcounter=0
+    const imga=(yeet)=>{
+        if(yeet==="Driller"){
+            return Driller
+        }
+        else if(yeet==="Screws"){
+            return Screws
+        }
+        else if(yeet==="Arduino Uno"){
+            return Arduino
+        }
+        else if(yeet==="Thermal Paste"){
+            return Thermal
+        }
+        else if(yeet==="wires"){
+            return wires
+        }
+        else if(yeet==="rod"){
+            return rod
+        }
+        else if(yeet==="pipews"){
+            return piews
+        }
+        else if(yeet==="grills"){
+            return grills
+        }   
+        
+    }
 
 const slideshowImages = [image1, image2, image3, image4, image5, image6];
 
@@ -148,12 +185,13 @@ return (
                             <MdNavigateNext />
                         </button>
                     </div>
-                    <div className="ml-4 mt-24 grid grid-cols-4 gap-4 md:grid-cols-2">
+                    <div className="ml-4 mt-24  overflow-y-auto flex flex-wrap">
                         {prod.map((item)=>(
-                            <div className="h-[27rem] w-[17rem] m-2 bg-[#e8e8e8] rounded-lg border border-gray-500 shadow-2xl relative flex flex-col">
+                            <div className="h-[27rem] w-[17rem] m-6 bg-[#e8e8e8] rounded-lg border border-gray-500 shadow-sm relative flex flex-col">
                                 <div className="h-[17rem] w-full bg-slate-950 rounded-lg">
-                                    <div className="h-fit w-fit">
-                                        {/* <img src={mjolnir}></img> */}
+                                    <div className="h-full w-full">
+                                        
+                                        <img src={imga(item.productName)} className="w-full h-full rounded-md"></img> 
                                     </div>
                                 </div>
                                 <div className="overflow-hidden">
