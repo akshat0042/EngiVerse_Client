@@ -32,9 +32,6 @@ module.exports = {
         'section-a': '#3498db', // Blue color for section A
         'section-b': '#e74c3c', // Red color for section B
       },
-      translate: {
-        '2': '10px',
-      },
     },
   },
   plugins: [],

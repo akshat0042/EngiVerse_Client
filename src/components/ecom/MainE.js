@@ -16,7 +16,7 @@ import wires from "../images/wires.webp"
 import piews from "../images/pipes.webp"
 import grills from "../images/grill.webp"
 import '../others/media.css';
-import Side from './searchbar'
+import Searchbar from './searchbar'
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
@@ -158,7 +158,7 @@ return (
             </div>
 
             <div className="flex flex-col w-screen h-screen bg-neutral-600">
-            <Side/>
+            <Searchbar/>
 
                 <div className="h-full w-full p-3 bg-[#B9B9B9] overflow-y-auto">
                     <div className="flex flex-row slideshow h-[30rem]">
@@ -185,9 +185,9 @@ return (
                             <MdNavigateNext />
                         </button>
                     </div>
-                    <div className="ml-4 mt-24  overflow-y-auto flex flex-wrap">
+                    <div className="ml-4 mt-24 overflow-y-auto flex flex-wrap">
                         {prod.map((item)=>(
-                            <div className="h-[27rem] w-[17rem] m-6 bg-[#e8e8e8] rounded-lg border border-gray-500 shadow-sm relative flex flex-col">
+                            <div className="h-[27rem] w-[17rem] m-6 bg-[#e8e8e8] rounded-lg hover:shadow-xl border border-gray-500 shadow-sm relative flex flex-col">
                                 <div className="h-[17rem] w-full bg-slate-950 rounded-lg">
                                     <div className="h-full w-full">
                                         

@@ -18,11 +18,13 @@
   .chat-item {
     background-color: transparent; /* Set the default background color */
     transition: background-color 0.3s ease; /* Add a smooth transition effect */
+    width: 215px;
   }
-  
+
   .chat-item:hover {
-    background-color: #9CA3AF; /* Change the background color on hover */
+    background-color: #585b61; /* Change the background color on hover */
     opacity: 0.90;
+    width: 215px;
   }
 
   .fade-in-out {

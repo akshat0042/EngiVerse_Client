@@ -15,6 +15,7 @@ import Cart from "./components/ecom/cart";
 import Settings from "./components/others/settings";
 const App = ()=> {
   return(
+    
     <Router>
       <div className="App">
         <Routes>
