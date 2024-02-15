@@ -2,14 +2,29 @@ import React, { useEffect, useRef,  useState } from "react";
 import axios from "axios"
 import '../others/media.css';
 import {useNavigate} from "react-router-dom";
-import photo from "../images/ehehe.png"
-import lolo from "../images/eleang.jpg"
-import back from "../images/hehe.png"
+import photo1 from "../images/5.png"
+import photo2 from "../images/6.jpg"
+import photo3 from "../images/7.jpg"
+import photo4 from "../images/8.jpg"
+import photo5 from "../images/9.jpg"
+import photo6 from "../images/10.jpg"
+import photo7 from "../images/11.jpg"
+import lolo1 from "../images/elec.png"
+import lolo2 from "../images/lolo2.png"
+import lolo3 from "../images/lolo3.jpg"
+import lolo4 from "../images/lolo4.png"
+import lolo5 from "../images/lolo5.jpg"
+import lolo6 from "../images/lolo6.jpg"
+import lolo7 from "../images/lolo7.jpg"
 import grpb from "../images/grpc.png"
 import eleC from "../images/elec.png"
 import { RxExit } from "react-icons/rx";
 import { MdEdit } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { GiPlagueDoctorProfile } from "react-icons/gi";
+import { IoAddSharp } from "react-icons/io5";
+import { CiSettings } from "react-icons/ci";
+import { IoMdCart } from "react-icons/io";
 
 const Chatmain = () => {
   const navigate =useNavigate()
@@ -25,7 +40,7 @@ const Chatmain = () => {
     
     const [data,setData]=useState({
       gtype:'', 
-  })
+    })
 
   const chatRef = useRef(null);
   
@@ -50,6 +65,8 @@ const Chatmain = () => {
   const [chatId,setChatId]=useState([])
   const [chatName,setChatName]=useState([])
   const [fetchChat,setFetchChat]=useState([])
+  const [fetchCom,setFetchCom]=useState([])
+  const [fetchUCom,setFetchUCom]=useState([])
   const [exploreCom,setExploreCom]=useState(false)
   const [createGrp,setCreategrp]=useState(false)
   const [showList,setShowList]=useState(false)
@@ -115,6 +132,7 @@ const Chatmain = () => {
   };
 
   const exp =()=>{
+    fetchComm()
     setExploreCom(!exploreCom)
   }
 
@@ -139,6 +157,17 @@ const Chatmain = () => {
     setFetchChat(res.data)
   }
 
+  const fetchComm=async()=>{
+    const res= await authAxios.post(`/getCommunity`)
+    console.log(res.data.data)
+    setFetchCom(res.data.data)
+  }
+  const fetchUComm=async()=>{
+    const res= await authAxios.post(`/showEtype`)
+    console.log(res)
+    setFetchUCom(res.data.orgy)
+  }
+  
   const comG = ()=>{
     if(dm===true){
       setDm(false)
@@ -147,6 +176,53 @@ const Chatmain = () => {
       setSeeChat(false)
     }
   }
+    const imga=(yeet)=>{
+      if(yeet==="Electircal"){
+          return photo1
+      }
+      else if(yeet==="Software"){
+          return photo2
+      }
+      else if(yeet==="Mechanical"){
+          return photo3
+      }
+      else if(yeet==="Environmental"){
+          return photo4
+      }
+      else if(yeet==="Bioengineers"){
+          return photo5
+      }
+      else if(yeet==="Civil"){
+        return photo6
+      }  
+      else if(yeet==="Aerospace"){
+        return photo7
+      } 
+  }
+
+  const imgb=(yeet)=>{
+    if(yeet==="Electircal"){
+        return lolo1
+    }
+    else if(yeet==="Software"){
+        return lolo2
+    }
+    else if(yeet==="Mechanical"){
+        return lolo3
+    }
+    else if(yeet==="Environmental"){
+        return lolo4
+    }
+    else if(yeet==="Bioengineers"){
+        return lolo5
+    }
+    else if(yeet==="Civil"){
+      return lolo6
+    }
+    else if(yeet==="Aerospace"){
+      return lolo7
+    }    
+}
 
   const checkChat = ()=>{
     if(dm===false){
@@ -158,6 +234,7 @@ const Chatmain = () => {
 
   useEffect(()=>{
     req()
+    fetchUComm()
   },[])
   
   useEffect(() => {
@@ -166,33 +243,54 @@ const Chatmain = () => {
     }
 }, [fetchChat]);
 
+const SidebarIcon = ({icon,text="hehe"})=>(
+  <div className="sidebar-icon group">
+      {icon}
+      <span className="sidebar-tooltip group-hover:scale-100">
+          {text}
+      </span>
+  </div>
+)
+
+const SidebarIconn = ({icon,text="hehe"})=>(
+  <div className="sidebar-iconn group">
+      {icon}
+      <span className="sidebar-tooltip group-hover:scale-100">
+          {text}
+      </span>
+  </div>
+)
+
   return (
     <div>
+      
       <div className={" bg-[#1E1F22] flex flex-row h-screen w-screen"}>
       <div className=" flex flex-row h-full w-full z-10 ">
             <div className={`w-20  h-screen bg-[#1E1F22] top-0 left-0 flex flex-col-reverse`}>
-                <div className=" h-[31.5%] pt-2 space-y-2">
-                  <button className={`w-12 text-[#60e43f] rounded-full center h-12 bg-[#313338]`} onClick={grp}>
-                    +<br/>
+                <div className=" h-[31.5%] pl-[0.45rem] pt-2 space-y-2">
+                  <button className={`w-12 text-[#60e43f] rounded-full flex h-12 bg-[#313338] justify-center items-center sidebar-icon `} onClick={grp}>
+                  <SidebarIcon icon={<IoAddSharp color="#60e43f" size="24"/>} text={"Create group"}/>
                   </button>
-                  <button className={`w-12 text-[#60e43f] rounded-full center h-12 bg-[#313338] `} onClick={exp}>
-                  <FaSearch /><br/>
+                  <button className={`w-12 text-[#60e43f] rounded-full flex h-12 bg-[#313338] justify-center items-center sidebar-icon`} onClick={exp}>
+                  <SidebarIcon icon={<FaSearch color="#60e43f" size="16"/>} text={"Search Communities"}/>
                   </button>
-                  <button className={`w-12 text-[#60e43f] rounded-full center h-12 bg-[#313338]`}>
-                    set<br/>
+                  <button className={`w-12 text-[#60e43f] rounded-full flex h-12 bg-[#313338] justify-center items-center sidebar-icon`}>
+                  <SidebarIcon icon={<CiSettings color="#60e43f" size="26"/>} text={"Settings"}/>
                   </button>
-                  <button className={`w-12 text-[#60e43f] rounded-full center h-12 bg-[#313338] `} onClick={ecomm}>
-                    ecom<br/>
+                  <button className={`w-12 text-[#60e43f] rounded-full flex h-12 bg-[#313338] justify-center items-center sidebar-icon`} onClick={ecomm}>
+                  <SidebarIcon icon={<IoMdCart color="#60e43f" size="26"/>} text={"Ecom"}/>
+                  
                   </button>
                 </div>
                 <div className="h-[60%] flex-col overflow-y-auto no-scrollbar" >
-                  <button className={`w-12 mb-1 text-[#ff2d2d] rounded-full center h-12 bg-[#b3c6f6]`} onClick={comG}>
-                      <img src={eleC} className="rounded-full"></img>
-                    </button>
+                    {fetchUCom.map((data)=>(<><button className={`w-12 mb-3 text-[#ff2d2d] rounded-full center h-12 bg-[#b3c6f6] sidebar-iconn`} onClick={comG}>
+                      <img src={imgb(data.name)} className="rounded-full sidebar-iconn"></img>
+                    </button></>))}
                 </div>
                 <div className="h-[9%] ">
-                  <button className={`w-12 mt-2 text-[#E1E4E6] rounded-full center h-12 bg-[#313338] `} onClick={checkChat}>
-                    Chat<br/>
+                  <button className={`w-12 mt-2 mx-auto text-[#E1E4E6] flex rounded-full center h-12 bg-[#313338] justify-center items-center sidebar-iconn`} onClick={checkChat}>
+                  <SidebarIconn icon={<GiPlagueDoctorProfile color="#60e43f" size="26"/>} text={"Chat"}/>
+                  {/* <GiPlagueDoctorProfile size={30} className="mx-auto my-auto "/><br/> */}
                   </button>
                 </div>
                 {/* {isHovered && (
@@ -312,39 +410,39 @@ const Chatmain = () => {
       {/* model */}
       {exploreCom?(<div className={"fixed inset-0  flex items-center justify-center z-50 backdrop-blur-md"}>
                 <div className={"flex flex-col h-[90%] w-[90%] p-2 rounded-lg shadow-lg relative z-10"} >
-                    <div className="h-[10%] text-[#ffffff] rounded-t-lg bg-[#242529]"><div> Explore communities</div>
+                    <div className="h-[10%] text-[#ffffff] yeetfont1 rounded-t-lg bg-[#242529]"><div> Explore Communities</div>
                       <input type="text" className="mt-1 rounded-md text-black pl-3" placeholder="Search...." />
                     </div>
-                    <div className="h-[80%] mt-2  bg-[#242529] overflow-y-auto flex flex-wrap">
-                      
+                    <div className="h-[80%] mt-2  bg-[#242529] overflow-y-auto flex flex-wrap  no-scrollbar">
+                      {fetchCom?(<>{fetchCom.map((data)=>(
                       <div className="h-[19rem] ml-2 w-[17rem] flex flex-col mt-2 hover:shadow-2xl hover:h-[19.1rem] hover:w-[17.05rem] transition-all duration-150 ease-linear rounded-b-lg">
                         <div className="h-[43%] bg-[#202C33]">
-                            <img src={photo} className="rounded-lg"></img>
+                            <img src={imga(data.name)} className="rounded-lg"></img>
                         </div>
                         <div className="h-[57%] flex flex-col-reverse rounded-b-lg bg-white">
                             <div className="h-7 p-[.2rem]  flex flex-row rounded-b-lg">
                               <div className="w-[7.5rem] ml-2 items-center flex-row flex bg-white text-left"> <div className="h-[0.5rem] w-[0.5rem] rounded-full bg-gray-500"/>
-                                <div className="">123 members</div></div>
+                                <div className="ml-1">{data.users.length} members</div></div>
                               <div className=" flex flex-row w-[6rem] ml-[.2rem] items-center text-left bg-white">
                                 <div className="h-[0.5rem] w-[0.5rem] rounded-full bg-green-500"/>
                                 <div className="">123 online</div></div>
                             </div>
                             <div className="h-full flex flex-col m-[.2rem] "> 
                               <div className="mt-3 ml-2 h-7 text-left bg-white">
-                                  <b>name</b>
+                                  <b>{data.name}</b>
                               </div>
                               <div className=" h-full ml-2 overflow-hidden text-sm text-left bg-white">
-                              loram ipsumloram ipsumloram ipsumloram ipsumloram ipsumloram ipsum
+                              {data.desc}
                               </div>
                             </div>
                         </div>
-                        <div className="fixed p-[.2rem] z-10 mt-[6.5rem] rounded-lg ml-[.6rem] h-[2.5rem] w-[2.5rem] bg-white ">
-                          <div className=" h-full w-full bg-white rounded-lg"> <img src={lolo} className="rounded-lg"></img>  </div>
+                        <div className=" abolute p-[.2rem] z-10 -mt-[12.5rem] rounded-lg ml-[.6rem] h-[2.5rem] w-[2.5rem] bg-white ">
+                          <div className=" h-full w-full bg-white rounded-lg"> <img src={imgb(data.name)} className="rounded-lg"></img>  </div>
                         </div>
                       </div>
-                      
+                       ))} </>):(null)}
                     </div>
-                    <div className="h-[7%] mt-2 rounded-b-lg bg-[#242529] text-white origin-center" onClick={exp}> <RxExit /></div>
+                    <div className="h-[7%] mt-2 rounded-b-lg bg-[#242529] text-white origin-center yeetfont1 pt-[0.7rem]" onClick={exp}> EXIT</div>
                 </div>
             </div>):(<></>)
             }
@@ -354,11 +452,10 @@ const Chatmain = () => {
                   <div className={`h-[40%] ${isHoveredProfilePic ? 'opacity-75 ' : 'group-hover:opacity-30'} rounded-t-md`} onMouseEnter={() => setIsHoveredProfilePic(true)} onMouseLeave={() => setIsHoveredProfilePic(false)}>
                     <img src={grpb} className=" h-full w-full rounded-t-md "></img>
                         {isHoveredProfilePic && (
-                          <div className=" absolute top-0 bg-black opacity-90 rounded-full flex  text-white cursor-pointer">
-                          <span className="h-full w-full origin-center"><MdEdit /></span>
+                          <div className=" absolute top-0 bg-black opacity-90 rounded-full flex origin-center justify-center text-white cursor-pointer">
+                          <span className=""><MdEdit /></span>
                           </div>
                         )}
-
                     </div>
                     
                     <div className="h-[60%] flex flex-row bg-[#1E1F22]">
@@ -408,17 +505,14 @@ const Chatmain = () => {
                   <button className=" fixed h-5 w-5 bg-white ml-2 rounded-sm mt-1 justify-center" onClick={grp}>
                       X
                   </button>
-                </div>
-                
+                </div>    
             </div>):(<></>)
-
             }
 
             {showList?(<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm"}>
                 <div className={" flex flex-col  h-[32rem] w-[50rem] rounded-lg shadow-lg relative z-10"} onClick={list}>
                     <div className="h-12 bg-white rounded-t-lg"> Add Connections</div>
                     <div className="h-full bg-gray-800 overflow-y-auto flex flex-wrap p-1 no-scrollbar">
-                      
                     {chat.map((data)=>(
                     <div className="bg-[#ffffff] rounded-md flex flex-row mb-1 mr-1 h-[3rem] w-[18rem] items-center">
                           <div className=" text-lg w-fit mt-2 h-10 px-2 flex-col-reverse rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
@@ -431,9 +525,7 @@ const Chatmain = () => {
                               </button>
                             </div>
                         </div>
-                        
                          ))}
-                        
                     </div>
                 </div>
             </div>):(<></>)}

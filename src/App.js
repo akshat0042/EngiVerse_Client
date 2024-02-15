@@ -6,13 +6,14 @@ import Signup from "./components/main/Signup";
 import Origin from "./components/main/Origin";
 import ProductAdd from "./components/ecom/productadd";
 import EcomHome from "./components/others/ecomHome";
-import Sidebar from "./components/others/Sidebar";
+// import Sidebar from "./components/others/Sidebar";
 import Productshow from "./components/ecom/productshow";
 import Chatmain from "./components/chat/Chatmain";
 import Indipro from"./components/ecom/indiproduct";
 import MainE from "./components/ecom/MainE";
 import Cart from "./components/ecom/cart";
 import Settings from "./components/others/settings";
+import Sidebar from "./components/chat/Sidebar";
 const App = ()=> {
   return(
     
