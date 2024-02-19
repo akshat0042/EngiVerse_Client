@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios"
+import axios, { Axios } from "axios";
 import '../others/media.css';
 import { useNavigate } from "react-router-dom";
 import photo1 from "../images/5.png"
@@ -32,12 +32,20 @@ const Chatmain = () => {
   const messagesRef = useRef(null);
   const token = sessionStorage.getItem("token")
   const baseURL = "http://localhost:5000/user"
+
   const authAxios = axios.create({
     baseURL: baseURL,
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  const [gData,setGData] = useState({
+    chatName:'',
+    chatType:'',
+    chatDesc:'',
+    userIds:[]
+})
 
   const [data, setData] = useState({
     gtype: '',
@@ -47,7 +55,7 @@ const Chatmain = () => {
 
   const [chat, setChat] = useState([])
 
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
 
   const req = async () => {
     try {
@@ -185,7 +193,7 @@ const Chatmain = () => {
   }
   const fetchUComm = async () => {
     const res = await authAxios.post(`/showEtype`)
-    console.log(res)
+    // console.log(res)
     setFetchUCom(res.data.orgy)
   }
   const fetchOneComm = async (id) => {
@@ -194,17 +202,6 @@ const Chatmain = () => {
     setFetchUCom(res.data.orgy)
   }
 
-  const comG = (data) => {
-    setSelectedCommunity(data)
-    console.log(data)
-    if (dm === true) {
-      setDm(false)
-    }
-    if (seeChat === true) {
-      setSeeChat(false)
-    }
-
-  }
   const imga = (yeet) => {
     if (yeet === "Electircal") {
       return photo1
@@ -228,7 +225,7 @@ const Chatmain = () => {
       return photo7
     }
   }
-
+  
   const imgb = (yeet) => {
     if (yeet === "Electircal") {
       return lolo1
@@ -252,7 +249,7 @@ const Chatmain = () => {
       return lolo7
     }
   }
-
+  
   const profilePhoto = (name) => {
     if (name == "Akshat") {
       return ""
@@ -262,10 +259,24 @@ const Chatmain = () => {
     if (dm === false) {
       setDm(true)
     }
+    if (seeChat === false) {
+      setSeeChat(true)
+    }
+    
+  }
 
+  const comG = (data) => {
+    setSelectedCommunity(data)
+    console.log(data)
+    if (dm === true) {
+      setDm(false)
+    }
+    if (seeChat === true) {
+      setSeeChat(false)
+    }
   }
   // console.log(data,"haha")
-
+  
   useEffect(() => {
     req()
     fetchUComm()
@@ -288,25 +299,37 @@ const Chatmain = () => {
 
   const ChangeIntro = () => {
     // setIntroduntion(true)
-    setIntroduntion((prevSelected) => !prevSelected)
+    if(!introduction){
+      setIntroduntion((prevSelected) => !prevSelected)
+    }
+    
     console.log(introduction)
+    setGeneral(false)
+    setIsHackathon(false)
+    setIsBroadcast(false)
   }
 
   const ChangeGenral = () => {
-    if (general) {
-      setGeneral(false)
-    } else {
+    if (!general) {
       setGeneral(true)
+      setIsHackathon(false)
+      setIsBroadcast(false)
+      if(introduction){
+        setIntroduntion((prevSelected) => !prevSelected)
+      }
     }
     console.log(general)
   }
 
   const ChangeHackathon = async () => {
-    if (isHackathon) {
-      setIsHackathon(false)
-    } else {
+    if (!isHackathon) {
       setIsHackathon(true)
-    }
+      setIsBroadcast(false)
+      setGeneral(false)
+      if(introduction){
+        setIntroduntion((prevSelected) => !prevSelected)
+      }
+    } 
     let res = await authAxios.post("/getHackathon")
     setHackathon(res.data.data)
     console.log(res.data.data)
@@ -329,10 +352,13 @@ const Chatmain = () => {
   const getBroadcast = async () => {
     let res = await authAxios.post("/getBroadcast")
     setGetBroadcast(res.data.data)
-    if (isBroadcast) {
-      setIsBroadcast(false)
-    } else {
+    if (!isBroadcast) {
       setIsBroadcast(true)
+      setGeneral(false)
+      setIsHackathon(false)
+      if(introduction){
+        setIntroduntion((prevSelected) => !prevSelected)
+      }
     }
     console.log(res.data.data)
   }
@@ -346,6 +372,35 @@ const Chatmain = () => {
       console.log(error)
     }
   }
+
+  const joinCom= async (id)=>{
+    console.log(id)
+    try {
+      let res = await authAxios.post(`/joinComunity/${id}`)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const addUser =(id)=>{
+    setGData(prevState=>({...prevState,userIds:[...prevState.userIds,id]}))
+    // console.log(gData)
+  }
+
+  let res
+  const createNewGrp= async ()=>{
+    console.log(gData)
+    try{
+      res = await authAxios.post("/crtgroup",gData)
+      console.log(res)
+
+  }
+  catch(e){
+      console.log(e)
+  }
+  }
+
   return (
     <div>
 
@@ -410,7 +465,7 @@ const Chatmain = () => {
                     />
                   </div>
                   <button
-                    className="bg-green-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                     onClick={postBroadcast}
                   >
                     Send
@@ -426,7 +481,7 @@ const Chatmain = () => {
             )}
             <div className="h-[60%] flex-col overflow-y-auto no-scrollbar" >
               {fetchUCom.map((data) => (<>
-                <button className={`w-12 mb-3 text-[#ff2d2d] rounded-full center h-12 bg-[#b3c6f6] sidebar-iconn`} onClick={() => comG(data)}>
+                <button className={`w-12 mb-3 text-[#ff2d2d] rounded-full center h-12 bg-[#1E1F22] sidebar-iconn`} onClick={() => comG(data)}>
                   <img src={imgb(data.name)} className="rounded-full sidebar-iconn"></img>
                 </button>
               </>))}
@@ -578,7 +633,7 @@ const Chatmain = () => {
                                   <div>
                                     <span
                                       className="px-4 py-2 mt-1 inline-block rounded-tl-lg rounded-r-lg  bg-[#1E1F22] text-[#ffffff]">
-                                      {data.content[0]}<br />
+                                      {data.content[0]}<br/>
                                     </span>
                                   </div>
                                 </div>
@@ -612,45 +667,41 @@ const Chatmain = () => {
                         {hackathon ? (
                           <div>
                             {hackathon.map((data) => (
-    <div className="flex items-end justify-end mb-4" key={data.id}>
-      <div className="flex flex-col space-y-4 text-xs max-w-xs mx-2 order-2 items-end">
-        <div>
-          <span className="px-4 w-[30rem] py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
-            <div>
-              <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
-                <div className="ml-4 mx-auto my-auto font-semibold text-xl">
-                  {data.name}
-                </div>
-              </span>
-            </div>
-            <div>
-              <span className="px-4 py-2 mt-1 inline-block  text-xl">
-                Mode: {data.mode}
-              </span>
-            </div>
-            <div className="text-base">
-              Context: {data.context}
-            </div>
-            <div>
-              <div className="flex mt-4 items-end content-end text-end justify-end">
-                <a href={`${data.url}`} className="rounded-md text-white yeetfont1 bg-green-700 p-2">Join</a>
-              </div>
-            </div>
-          </span>
-        </div>
-      </div>
-    </div>
-  ))}
+                              <div className="flex items-end justify-end mb-4" key={data.id}>
+                                <div className="flex flex-col space-y-4 text-xs max-w-xs mx-2 order-2 items-end">
+                                  <div>
+                                    <span className="px-4 w-[30rem] py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
+                                      <div>
+                                        <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
+                                          <div className="ml-4 mx-auto my-auto font-semibold text-xl">
+                                            {data.name}
+                                          </div>
+                                        </span>
+                                      </div>
+                                      <div>
+                                        <span className="px-4 py-2 mt-1 inline-block  text-xl">
+                                          Mode: {data.mode}
+                                        </span>
+                                      </div>
+                                      <div className="text-base">
+                                        Context: {data.context}
+                                      </div>
+                                      <div>
+                                        <div className="flex mt-4 items-end content-end text-end justify-end">
+                                          <a href={`${data.url}`} className="rounded-md text-white yeetfont1 bg-green-700 p-2 px-5">Join</a>
+                                        </div>
+                                      </div>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         ) : (null)}
-
-
                       </div>
                     ) : (null)}
-
                   </div>
                 </div></>)}
-
           </div>
           {/* <div className={"flex flex-col w-5/12"}>
                     <div className={"bg-fuchsia-700 p-4"}>
@@ -671,7 +722,7 @@ const Chatmain = () => {
           </div>
           <div className="h-[80%] mt-2  bg-[#242529] overflow-y-auto flex flex-wrap  no-scrollbar">
             {fetchCom ? (<>{fetchCom.map((data) => (
-              <div className="h-[19rem] ml-2 w-[17rem] flex flex-col mt-2 hover:shadow-2xl hover:h-[19.1rem] hover:w-[17.05rem] transition-all duration-150 ease-linear rounded-b-lg">
+              <div className="h-[19rem] ml-2 w-[17rem] flex flex-col mt-2 hover:shadow-2xl hover:h-[19.1rem] hover:w-[17.05rem] transition-all duration-150 ease-linear rounded-b-lg cursor-pointer" onClick={()=>joinCom(data._id)}>
                 <div className="h-[43%] bg-[#202C33]">
                   <img src={imga(data.name)} className="rounded-lg"></img>
                 </div>
@@ -719,12 +770,16 @@ const Chatmain = () => {
               <div className="h-[2.6rem] bg-[#1E1F22]"></div>
               <div className="h-[4.3rem] bg-[#2B2D31] flex flex-row">
                 <div className="w-1/3 p-1 flex flex-col">
-                  <div className="text-left text-[#CACACA] sheeshfont text-xl ">name</div>
-                  <input type="text" className=" rounded-md pl-1 bg-[#eaeaea] text-[1.10rem]"></input>
+                  <div className="text-left text-[#CACACA] sheeshfont text-xl " >name</div>
+                  <input type="text" className=" rounded-md pl-[0.4rem] bg-[#eaeaea] text-[1.10rem]" value={gData.chatName}  onChange={(event)=>{
+                                    setGData({...gData,chatName:event.target.value})
+                                }}></input>
                 </div>
                 <div className="w-1/3 p-1 flex flex-col" >
                   <label className=" text-left text-[#CACACA] sheeshfont text-xl">type</label>
-                  <select name="cars" id="cars" className="h-[1.65rem] bg-[#eaeaea] pl-1 rounded-md" value={data.gtype} onChange={handleChatTypeChange}>
+                  <select name="cars" id="cars" className="h-[1.65rem] bg-[#eaeaea] pl-1 rounded-md" value={gData.chatType} onChange={(event)=>{
+                    setGData({...gData,chatType:event.target.value})
+                  }}>
                     <option value="0">please select any one</option>
                     <option value="private">private</option>
                     <option value="Public">public all</option>
@@ -734,12 +789,14 @@ const Chatmain = () => {
                 </div>
                 <div className="w-1/3 flex flex-col p-1 " >
                   <label className=" text-left text-[#CACACA] overflow-y-hidden sheeshfont text-xl">Add people </label>
-                  <button disabled={listV} className={`bg-[#999da5] disabled:opacity-40 rounded-lg shadow-xl`} onClick={list}>show list</button>
+                  <button className={`bg-[#999da5] disabled:opacity-40 rounded-lg shadow-xl`} onClick={list}>show list</button>
                 </div>
               </div>
               <div className="h-[17.5rem] flex flex-col p-1 bg-[#313338]">
-                <label className="mt-1 text-left sheeshfont text-xl text-[#CACACA]">Description</label>
-                <textarea className="h-full bg-[#e4e4e4] rounded-md"></textarea>
+                <label className="mt-1 text-left sheeshfont text-xl text-[#CACACA]" >Description</label>
+                <textarea className="h-full bg-[#e4e4e4] p-1 rounded-md" value={gData.chatDesc} onChange={(event)=>{
+                                    setGData({...gData,chatDesc:event.target.value})
+                                }}></textarea>
               </div>
             </div>
             <div className=" flex flex-col h-full bg-black w-full">
@@ -747,10 +804,14 @@ const Chatmain = () => {
               <div className="h-full p-[0.3rem] bg-[#2B2D31]">
                 <div className="h-full bg-[#313338] flex flex-col-reverse">
                   <div className="h-[2.4rem] items-center flex flex-row-reverse">
-                    <button className="bg-[#26ec18] rounded-lg w-[6rem] h-8"> create</button>
+                    <button className="bg-[#26ec18] rounded-lg w-[6rem] h-8" onClick={()=>createNewGrp()}> create</button>
                     <button className="bg-[#a2a2a2] rounded-lg mr-2 w-[6rem] h-8" onClick={grp}>Cancel</button>
                   </div>
-                  <div className="h-full"></div>
+                  <div className="h-full">
+                    {gData.userIds.map((data)=>(
+                      <>{data}</>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -766,17 +827,17 @@ const Chatmain = () => {
       }
 
       {showList ? (<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm"}>
-        <div className={" flex flex-col  h-[32rem] w-[50rem] rounded-lg shadow-lg relative z-10"} onClick={list}>
-          <div className="h-12 bg-white rounded-t-lg"> Add Connections</div>
+        <div className={" flex flex-col h-[32rem] w-[50rem] rounded-lg shadow-lg "} >
+          <div className="h-12 bg-white rounded-t-lg" onClick={list}> Add Connections</div>
           <div className="h-full bg-gray-800 overflow-y-auto flex flex-wrap p-1 no-scrollbar">
             {chat.map((data) => (
-              <div className="bg-[#ffffff] rounded-md flex flex-row mb-1 mr-1 h-[3rem] w-[18rem] items-center">
+              <div className="bg-[#ffffff] rounded-md flex flex-row mr-1 h-[3rem] w-[18rem] items-center">
                 <div className=" text-lg w-fit mt-2 h-10 px-2 flex-col-reverse rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
                   <div> {data.users[1].firstName} </div>
                   <div className=" text-xs -mt-1"> {data.users[1].firstName}</div>
                 </div>
                 <div className="w-full h-full  flex flex-row-reverse items-center">
-                  <button className="w-[6rem] mr-1 bg-[#11ff00] h-6 rounded-lg">
+                  <button className="w-[6rem] mr-1 bg-[#11ff00] h-6 rounded-lg" onClick={()=>addUser(data.users[1]._id)}>
                     Add
                   </button>
                 </div>
