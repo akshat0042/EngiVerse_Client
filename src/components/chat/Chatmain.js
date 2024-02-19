@@ -388,6 +388,22 @@ const Chatmain = () => {
     // console.log(gData)
   }
 
+  let extractedDateTimeString = null;
+  const extractDateTime = (dateTimeString) => {
+    const dateObject = new Date(dateTimeString);
+    const day = dateObject.getDate();
+    const month = dateObject.getMonth() + 1; // Adding 1 to get the month number
+    const hours = dateObject.getHours();
+    const minutes = dateObject.getMinutes();
+
+    // Format day and month with leading zeros if needed
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    // Concatenate day, month, hours, and minutes into a string
+    extractedDateTimeString = `${formattedDay}/${formattedMonth} ${hours}:${minutes}`;
+  }  
+
   let res
   const createNewGrp= async ()=>{
     console.log(gData)
@@ -400,6 +416,7 @@ const Chatmain = () => {
       console.log(e)
   }
   }
+
 
   return (
     <div>
@@ -506,8 +523,17 @@ const Chatmain = () => {
               </div>
             </div>
               <div className={"bg-[#2B2D31] h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
-                {chat.map((data) => (<div className="yeetfont text-[#eaeaea] chat-item  text-lg w-full mt-2 h-10 px-2 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
-                  {data.users[1].firstName}
+                {chat.map((data) => (<div className="yeetfont text-[#eaeaea] flex flex-row chat-item text-lg w-full mt-2 h-[3.2rem] p-1 rounded-md text-left" onClick={() => { handelChatClick(data._id, data.users[1].firstName) }}>
+                  <div className="w-[21%] h-full rounded-full bg-white"> </div>
+                  <div className="ml-1 flex flex-col w-[45%]">
+                    <div> {data.users[1].firstName}</div>
+                    <div className="text-xs -mt-1">haha</div>
+                  </div>
+                  <div className="w-[15%] text-xs ">
+                  <div> {extractDateTime(data.latestMessage.createdAt)}
+                  {extractedDateTimeString}</div>
+                  </div>
+                  
                 </div>))}
               </div></>) : (<>
 
@@ -851,3 +877,35 @@ const Chatmain = () => {
 }
 
 export default Chatmain;
+
+// import React from 'react';
+
+// const DateTimeExtractor = ({ dateTimeString }) => {
+//   const extractDateTime = (dateTimeString) => {
+//     const dateObject = new Date(dateTimeString);
+//     const day = dateObject.getDate();
+//     const month = dateObject.getMonth() + 1; // Adding 1 to get the month number
+//     const time = dateObject.toLocaleTimeString();
+
+//     return { day, month, time };
+//   };
+
+//   const extractedDateTime = extractDateTime(dateTimeString);
+
+//   return (
+//     <div>
+//       <p>Day: {extractedDateTime.day}</p>
+//       <p>Month: {extractedDateTime.month}</p>
+//       <p>Time: {extractedDateTime.time}</p>
+//     </div>
+//   );
+// };
+
+// // Example usage
+// const DateTimeComponent = () => {
+//   const dateTimeString = "2024-02-11T10:44:59.523Z";
+
+//   return <DateTimeExtractor dateTimeString={dateTimeString} />;
+// };
+
+// export default DateTimeComponent;
