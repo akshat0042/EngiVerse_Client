@@ -74,7 +74,7 @@ const Login = ()=>{
                     <div className=" fixed ml-[30rem] mt-[6.5rem] backdrop-blur-sm shadow-2xl rounded-lg h-3/4 w-[40%]">
                                                 
                         <div className="h-full flex flex-col rounded-r-lg">
-                            <label className="h-24 bold mt-10 text-4xl text-sky-50 text-center rounded-tr-lg">
+                            <label className="h-24 bold mt-10 text-4xl text-gray-500-50 text-center rounded-tr-lg yeetfont1">
                                 LOGIN
                             </label>
                             <div className="h-full  p-10 rounded-br-lg">
@@ -88,7 +88,7 @@ const Login = ()=>{
                                     </svg>
                                 </div>
                                 <input type="text"  value={data.userName}
-                                class="bg-gray-50 border border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-10 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" onChange={(event)=>{
+                                class="bg-gray-50 border border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-10 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Username" onChange={(event)=>{
                                     setData({...data,userName:event.target.value})
                                 }}/>
                                 
@@ -101,13 +101,14 @@ const Login = ()=>{
                                     </svg>
                                 </div>
                                     <input type="password" id="website-admin" value={data.password}
-                                    class="bg-gray-50 border border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-10 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="elonmusk"
+                                    class="bg-gray-50 border border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-10 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password"
                                     onChange={(event)=>{
                                         setData({...data,password:event.target.value})
                                     }}/>
                                 </div>
+                                
                                 <div className="mt-6">
-                                    <button className="bg-[#2B2D31] text-white p-3 w-1/5 rounded-md hover:bg-[#45474b] focus:outline-none focus:ring focus:border-blue-300" onClick={Loggin}>Login</button>
+                                    <button className="bg-[#2B2D31] text-white    p-3 w-1/5 rounded-md hover:bg-[#45474b] focus:outline-none focus:ring focus:border-blue-300 mt-3" onClick={Loggin}>Login</button>
                                 </div>
                                 <br/>
                                 <div className="mt-24">
