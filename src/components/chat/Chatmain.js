@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-import axios, { Axios } from "axios";
-import '../others/media.css';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react"
+import axios, { Axios } from "axios"
+import '../others/media.css'
+import { useNavigate } from "react-router-dom"
 import photo1 from "../images/5.png"
 import photo2 from "../images/6.jpg"
 import photo3 from "../images/7.jpg"
@@ -27,14 +27,14 @@ import user8 from "../images/user8.png"
 import grpimg from "../images/grpimg.jpeg"
 import grpb from "../images/grpc.png"
 import eleC from "../images/elec.png"
-import { RxExit } from "react-icons/rx";
-import { MdEdit } from "react-icons/md";
-import { FaSearch } from "react-icons/fa";
-import { GiPlagueDoctorProfile } from "react-icons/gi";
-import { IoMegaphone } from "react-icons/io5";
-import { IoAddSharp } from "react-icons/io5";
-import { CiSettings } from "react-icons/ci";
-import { IoMdCart } from "react-icons/io";
+import { RxExit } from "react-icons/rx"
+import { MdEdit } from "react-icons/md"
+import { FaSearch } from "react-icons/fa"
+import { GiPlagueDoctorProfile } from "react-icons/gi"
+import { IoMegaphone } from "react-icons/io5"
+import { IoAddSharp } from "react-icons/io5"
+import { CiSettings } from "react-icons/ci"
+import { IoMdCart } from "react-icons/io"
 
 const Chatmain = () => {
     const navigate = useNavigate()
@@ -115,19 +115,19 @@ const Chatmain = () => {
     const [broadcast, setBroadcast] = useState({
         context: "",
         require: "",
-        finance: ""
+        fin: ""
     })
     const [polls,setPolls] = useState([])
-    const [totalVotes, setTotalVotes] = useState(0);
+    const [totalVotes, setTotalVotes] = useState(0)
     const [addPolls, setAddPolls] = useState(false)
 
 
     const openModal = () => {
-        setIsOpen(true);
+        setIsOpen(true)
     };
 
     const closeModal = () => {
-        setIsOpen(false);
+        setIsOpen(false)
     };
 
     const handelChatClick = (chatId, name) => {
@@ -166,10 +166,10 @@ const Chatmain = () => {
         try {
             const res = await authAxios.post(`/sendMsg/${chatId}`, newMessage)
             console.log(res)
-            fetchMsg(chatId);
+            fetchMsg(chatId)
             setNewMessage((prevMessage) => ({ ...prevMessage, content: '' }));
         } catch (error) {
-            console.error("Error sending message:", error);
+            console.error("Error sending message:", error)
         }
     }
 
@@ -179,10 +179,10 @@ const Chatmain = () => {
             console.log(selectedCommunity.genralChat)
             const res = await authAxios.post(`/sendMsg/${selectedCommunity.genralChat}`, newMsgGen)
             console.log(res)
-            fetchMsgGen(selectedCommunity.genralChat);
-            setNewMessage((prevMessage) => ({ ...prevMessage, content: '' }));
+            fetchMsgGen(selectedCommunity.genralChat)
+            setNewMessage((prevMessage) => ({ ...prevMessage, content: '' }))
         } catch (error) {
-            console.error("Error sending message:", error);
+            console.error("Error sending message:", error)
         }
     }
 
@@ -202,15 +202,15 @@ const Chatmain = () => {
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            sendMessage();
+            event.preventDefault()
+            sendMessage()
         }
     };
 
     const handleKeyDownGen = (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault();
-            sendMsgGen();
+            event.preventDefault()
+            sendMsgGen()
         }
     };
 
@@ -411,7 +411,7 @@ const Chatmain = () => {
         if(!introduction){
             setIntroduntion((prevSelected) => !prevSelected)
         }
-
+        localStorage.setItem("comsele", "Introduction")
         console.log(introduction)
         setGeneral(false)
         setIsHackathon(false)
@@ -422,6 +422,7 @@ const Chatmain = () => {
     const ChangeGenral = async (id) => {
         if (!general) {
             setGeneral(true)
+            localStorage.setItem("comsele", "General")
             setIsHackathon(false)
             setIsBroadcast(false)
             setIsPolls(false)
@@ -438,6 +439,7 @@ const Chatmain = () => {
         if (!isHackathon) {
             setIsHackathon(true)
             setIsBroadcast(false)
+            localStorage.setItem("comsele", "Hackathon")
             setGeneral(false)
             setIsPolls(false)
             if(introduction){
@@ -466,9 +468,11 @@ const Chatmain = () => {
     const getBroadcast = async () => {
         let res = await authAxios.post("/getBroadcast")
         setGetBroadcast(res.data.data)
+        console.log(getBroadcast)
         if (!isBroadcast) {
             setIsBroadcast(true)
             setGeneral(false)
+            localStorage.setItem("comsele", "Broadcast")
             setIsHackathon(false)
             setIsPolls(false)
             if(introduction){
@@ -552,6 +556,7 @@ const Chatmain = () => {
         try{
             if(!isPolls){
                 setIsPolls(true)
+                localStorage.setItem("comsele", "Polls")
                 setGeneral(false)
                 setIsHackathon(false)
                 setIsBroadcast(false)
@@ -570,10 +575,14 @@ const Chatmain = () => {
 
     useEffect(() => {
         const votes = polls.reduce((acc, poll) => {
-            return acc + poll.options.reduce((acc, option) => acc + option.selected.length, 0);
-            }, 0);
-        setTotalVotes(votes);
+            return acc + poll.options.reduce((acc, option) => acc + option.selected.length, 0)
+            }, 0)
+        setTotalVotes(votes)
         }, [polls])
+
+    useEffect(() => {
+        localStorage.clear()
+        }, [])
 
 
 
@@ -661,9 +670,14 @@ const Chatmain = () => {
 
     const postPoll =async(id)=>{
         // console.log(id)
-        await setSendPoll({...sendPoll,communityId:id})
+        try{
+            await setSendPoll({...sendPoll,communityId:id})
         res=await authAxios.post(`/createPolls`,sendPoll)
         console.log(res)
+        }catch(e){
+            console.log(e)
+        }
+        
     }
     return (
         <div>
@@ -687,14 +701,14 @@ const Chatmain = () => {
                         </div>
                         {isOpen && (
                             <div className="fixed inset-0  flex items-center justify-center z-50 backdrop-blur-md">
-                                <div className="bg-white p-8 rounded shadow-lg w-1/2">
-                                    <h2 className="text-lg font-bold mb-4">Broadcast to other Communities</h2>
+                                <div className="bg-[#2B2D31] p-8 rounded shadow-lg w-1/2">
+                                    <h2 className="text-lg text-[#ffffff] font-bold mb-4">Broadcast to other Communities</h2>
                                     <div className="mb-4">
-                                        <label className="block text-gray-700 text-sm font-bold mb-2">
+                                        <label className="block text-[#ffffff] text-sm font-bold mb-2">
                                             Context
                                         </label>
                                         <input
-                                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="appearance-none bg-[#CACACA] border rounded w-full py-2 px-3 text-black leading-tight placeholder:text-slate-800 focus:outline-none focus:shadow-outline"
                                             type="text"
                                             placeholder="Context"
                                             value={broadcast.context}
@@ -703,11 +717,11 @@ const Chatmain = () => {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label className="block text-gray-700 text-sm font-bold mb-2" >
+                                        <label className="block text-[#ffffff] text-sm font-bold mb-2" >
                                             require
                                         </label>
                                         <input
-                                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="appearance-none bg-[#CACACA] border rounded w-full py-2 px-3 text-black leading-tight placeholder:text-slate-800 focus:outline-none focus:shadow-outline"
                                             type="text"
                                             placeholder="require"
                                             value={broadcast.require}
@@ -716,16 +730,16 @@ const Chatmain = () => {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label className="block text-gray-700 text-sm font-bold mb-2">
-                                            Finance
+                                        <label className="block text-[#ffffff] text-sm font-bold mb-2">
+                                            Fin
                                         </label>
                                         <input
-                                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            id="finance"
+                                            className="appearance-none border bg-[#CACACA] rounded w-full py-2 px-3 text-black placeholder:text-slate-800 leading-tight focus:outline-none focus:shadow-outline"
+                                            id="fin"
                                             type="text"
-                                            placeholder="Finance"
-                                            value={broadcast.finance}
-                                            onChange={(event) => { setBroadcast({ ...broadcast, finance: event.target.value }) }}
+                                            placeholder="Fin"
+                                            value={broadcast.fin}
+                                            onChange={(event) => { setBroadcast({ ...broadcast, fin: event.target.value }) }}
                                         />
                                     </div>
                                     <button
@@ -779,7 +793,7 @@ const Chatmain = () => {
                                     {!data.isGroupChat?(<><div> {data.users[1].firstName}</div></>):(<></>)}
                                     <div className="text-xs -mt-1 flex flex-row">
                                         <div className="w-[4rem] overflow-x-auto no-scrollbar">
-                                            {/* {data.latestMessage.contentt[0]} */}
+                                            {/* {data.latestMessage.content[0]} */}
                                         </div>
                                         <div className="w-[6rem%] ml-1 text-xs ">
                                         {/* <div> {extractDateTime(data.latestMessage.createdAt)}
@@ -828,11 +842,14 @@ const Chatmain = () => {
                         </div></>)}
                     </div>
                     <div className={"flex flex-col w-screen"}>
+                        
                         {seeChat ? (<><div className={"bg-gradient-to-r from-[#313338] to-[#333333] opacity-80 p-[0.80rem] shadow-2xl text-white w-full text-center"} >
+                            
                             {sessionStorage.getItem("name") ? (<div>
                                 {sessionStorage.getItem("name")}
                             </div>) : (
                                 <div>
+                                    EngiVerse
                                 </div>
                                 )}
                         </div>
@@ -876,7 +893,13 @@ const Chatmain = () => {
                             </div>
                         </div></>) : (<>
                         <div className={"bg-gradient-to-r from-[#313338] to-[#333333] opacity-80 p-[0.80rem] shadow-2xl text-white w-full text-center"} >
-                            EngiVerse
+                        {localStorage.getItem("comsele") ? (<div>
+                                {localStorage.getItem("comsele")}
+                            </div>) : (
+                                <div>
+                                    EngiVerse
+                                </div>
+                                )}
                         </div>
 
                             {isBroadcast && (
@@ -898,7 +921,7 @@ const Chatmain = () => {
                                                                 </div>
                                                                 <div className="mt-2 text-lg">{data.context}</div>
                                                                 <div className="mt-2 text-base">requirements : {data.requirments}</div>
-                                                                <div className="mt-2 text-base">{data.finance ? (`Finance : ${data.finance}`) : (`Finance Not Specified`)}</div>
+                                                                <div className="mt-2 text-base">{data.finance ? (`Fin : ${data.finance}`) : (`Finance Not Specified`)}</div>
                                                                 <div className="flex items-end content-end text-end justify-end">
                                                                     <button onClick={() => Contact(data.user._id)} className="rounded-md text-white yeetfont1 bg-green-700 p-2">Contact</button>
                                                                 </div>
@@ -1063,7 +1086,7 @@ const Chatmain = () => {
                     </div>
                     <div className="h-[80%] mt-2  bg-[#242529] overflow-y-auto flex flex-wrap  no-scrollbar">
                         {fetchCom ? (<>{fetchCom.map((data) => (
-                            <div className="h-[19rem] ml-2 w-[17rem] flex flex-col mt-2 hover:shadow-2xl hover:h-[19.1rem] hover:w-[17.05rem] transition-all duration-150 ease-linear rounded-b-lg cursor-pointer" onClick={()=>joinCom(data._id)}>
+                            <div className="h-[19rem] ml-2 w-[17rem] flex flex-col mb-1 mt-2 hover:shadow-2xl hover:h-[19.1rem] hover:w-[17.05rem] transition-all duration-150 ease-linear rounded-b-lg cursor-pointer" onClick={()=>joinCom(data._id)}>
                                 <div className="h-[43%] bg-[#202C33]">
                                     <img src={imga(data.name)} className="rounded-lg"></img>
                                 </div>
@@ -1073,7 +1096,7 @@ const Chatmain = () => {
                                             <div className="ml-1">{data.users.length} members</div></div>
                                         <div className=" flex flex-row w-[6rem] ml-[.2rem] items-center text-left bg-white">
                                             <div className="h-[0.5rem] w-[0.5rem] rounded-full bg-green-500" />
-                                            <div className="">123 online</div></div>
+                                            <div className="ml-1">-- online</div></div>
                                     </div>
                                     <div className="h-full flex flex-col m-[.2rem] ">
                                         <div className="mt-3 ml-2 h-7 text-left bg-white">

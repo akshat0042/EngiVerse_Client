@@ -35,6 +35,7 @@ const Signup = ()=>{
     const [ageError, setAgeError] = useState("");
     const [mod, setMod] = useState(true);
     const [page, setPage] = useState(true);
+    const [ottp, setOttp] = useState(true);
     
     const aurthAxios=axios.create({
         baseURL:"http://localhost:5000/",
@@ -157,6 +158,7 @@ const Signup = ()=>{
     const changeP = ()=>{
         setPage(!page)
     }
+
     return(
         <>
             <div className="w-full h-screen items-start">
@@ -178,15 +180,15 @@ const Signup = ()=>{
                         <div className="h-full w-full p-10">
                             {page?(<>
                                 <label for="input-group-1" class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Firstname</label>
-                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value={data.fName}  onChange={(event)=>{
+                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Max" value={data.fName}  onChange={(event)=>{
                                     setData({...data,fName:event.target.value})
                                 }}/>
                                 <label for="input-group-1" class="block mb-2 mt-5 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Lastname</label>
-                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value={data.lName} onChange={(event)=>{
+                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Verstappen" value={data.lName} onChange={(event)=>{
                                     setData({...data,lName:event.target.value})
                                 }}/>
                                 <label for="input-group-1" class="block mb-2 mt-5 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Username</label>
-                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value={data.userName} onChange={(event)=>{
+                                <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="MaxVers" value={data.userName} onChange={(event)=>{
                                     setData({...data,userName:event.target.value})
                                 }}/>
                                 <div className="h-[3rem] mt-5 mr-3 flex flex-row-reverse items-center ">
@@ -203,13 +205,13 @@ const Signup = ()=>{
                                 <div className="flex flex-row">
                                     <div className="w-[50%]">
                                         <label for="input-group-1" class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Password</label>
-                                        <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value={data.password} onChange={(event)=>{
+                                        <input type="password" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="**********" value={data.password} onChange={(event)=>{
                                             setData({...data,password:event.target.value})
                                         }}/>
                                     </div>
                                     <div className="w-[50%]">
                                         <label for="input-group-1" class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Re-Enter Password</label>
-                                        <input type="text" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value={rePass.repass} onChange={(event)=>{
+                                        <input type="password" class="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="**********" value={rePass.repass} onChange={(event)=>{
                                             setRePass({...rePass,repass:event.target.value})
                                         }}/>
                                     </div>
@@ -223,7 +225,7 @@ const Signup = ()=>{
                                     </div>
                                     <div className="w-[50%]">
                                         <label for="input-group-1" class="block mb-2 text-sm font-medium text-left text-gray-900 dark:text-gray-900">Phone</label>
-                                        <input className="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" value={data.phone} placeholder="name@flowbite.com" onChange={(event)=>{
+                                        <input className="bg-gray-50 border -mt-2 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] ps-3 p-2.5  dark:bg-[#2B2D31] dark:border-gray-500 dark:placeholder-gray-300 dark:text-[#ffffff] dark:focus:ring-blue-500 dark:focus:border-blue-500" value={data.phone} placeholder="9998****27" onChange={(event)=>{
                                          setData({...data,phone:event.target.value})
                                      }}></input>
                                     </div>
@@ -282,6 +284,7 @@ const Signup = ()=>{
                     </div>
                 </div>
                 <img src={back} className='w-full h-full'/>
+
                 </div>
                  
         </>
@@ -289,105 +292,3 @@ const Signup = ()=>{
 }
 
 export default Signup
-
-// <div className='text-4xl  font-momcake mt-4'>
-//                             Sign-Up
-//                         </div>
-//                         <div className=" flex-col h-full  mt-3">
-//                             <div className=" flex flex-row h-[5rem] ">
-//                                 <div className=" w-1/2 text-left  pl-2">
-//                                     Firstname
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.fName}  onChange={(event)=>{
-//                                         setData({...data,fName:event.target.value})
-//                                     }}/>
-//                                     <span style={{ color: "red" }}>{firstNameError}</span>
-//                                 </div>
-//                                 <div className=" w-1/2 text-left  pl-2">
-//                                 Lastname
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.lName} onChange={(event)=>{
-//                                         setData({...data,lName:event.target.value})
-//                                     }}/>
-//                                     <span style={{ color: "red" }}>{lastNameError}</span>
-//                                 </div>
-//                             </div>
-                            
-//                             <div className=" flex flex-row h-[5rem] ">
-//                                 <div className=" w-1/2 text-left  pl-2">
-//                                     User-Name
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.userName} onChange={(event)=>{
-//                                         setData({...data,userName:event.target.value})
-//                                     }}/>
-//                                     <span style={{ color: "red" }}>{userNameError}</span>
-//                                 </div>
-//                                 <div className=" w-1/2 text-left  pl-2">
-//                                     Date of birth
-//                                     <input type="date" className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.dob} onChange={(event)=>{
-//                                         setData({...data,dob:event.target.value})
-//                                     }}></input>
-//                                     <span style={{ color: "red" }}>{dobError}</span>
-//                                     <span style={{ color: "red" }}>{ageError}</span>
-//                                 </div>
-//                             </div>
-
-//                             <div className=" flex flex-row h-[5rem] ">
-//                                 <div className=" w-1/2 text-left pl-2">
-//                                     Password
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.password} onChange={(event)=>{
-//                                         setData({...data,password:event.target.value})
-//                                     }}/>
-//                                     <span style={{ color: "red" }}>{passError}</span>
-//                                 </div>
-//                                 <div className=" w-1/2 text-left  pl-2">
-//                                     Re-enter Password
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={rePass.repass} onChange={(event)=>{
-//                                         setRePass({...rePass,repass:event.target.value})
-//                                     }}/>
-//                                     {passMatch?(<div></div>):(<div>not match</div>)}
-//                                 </div>
-//                             </div>
-
-//                             <div className=" flex flex-row h-[5rem] ">
-//                                 <div className=" w-2/5 text-left  pl-2">
-//                                     phone<br/>
-//                                     <input className="mt-1 p-2 w-5/6 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.phone} onChange={(event)=>{
-//                                         setData({...data,phone:event.target.value})
-//                                     }}></input>
-//                                 </div>
-//                                 <div className=" w-3/5 text-left  pl-2">
-//                                     E-mail<br/>
-//                                     <input className="mt-1 p-2 w-[86%] border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.mail} onChange={(event)=>{
-//                                         setData({...data,mail:event.target.value})
-//                                     }}></input>
-//                                 </div>
-//                             </div>
-//                             <div className=" flex flex-row h-[5rem] ">
-//                                 <div className=" w-2/5 text-left  pl-2">
-//                                     gender<br/>
-//                                     <input type="radio" name="gender" value="male" onChange={(event)=>{
-//                                         setData({...data,gender:event.target.value})
-//                                     }}/>male
-//                                     <input type="radio" name="gender" className="ml-2" value="female" onChange={(event)=>{
-//                                         setData({...data,gender:event.target.value})
-//                                     }}/>female <br/>
-//                                     <input type="radio" name="gender" value="other" onChange={(event)=>{
-//                                         setData({...data,gender:event.target.value})
-//                                     }}></input>others
-//                                     <span style={{ color: "red" }}>{genderError}</span>
-//                                 </div>
-//                                 <div className=" w-3/5 text-left pl-2">
-//                                     specialisation<br/>
-//                                     <select className=" w-5/6 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" value={data.e1} onChange={(event)=>{
-//                                         setData({...data,e1:event.target.value})
-//                                     }} >
-//                                         <option value="0" >please select an option</option>
-//                                         <option value="Mechanical" >Mechenical Engineering</option>
-//                                         <option value="ComputerScience" >Computer Science</option>
-//                                         <option value="Chemical" >Chemical Engineering</option>
-//                                         <option value="Biomedical" >Biomedical Engineering</option>
-//                                     </select>
-//                                 </div>
-//                             </div>
-//                             <div className="w-full h-[5rem]">
-//                             <button className="bg-gray-500 mt-3 text-white p-3 w-1/5 rounded-md hover:bg-gray-700 focus:outline-none focus:ring focus:border-blue-300" onClick={Loggin}>Signup</button>
-//                             </div>
-//                         </div>
