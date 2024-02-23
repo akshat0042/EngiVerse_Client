@@ -51,6 +51,7 @@ const Login = ()=>{
                 if(res.status===200){
                     console.log(res)
                     sessionStorage.setItem("token",res.data.token)
+                    sessionStorage.setItem("Dp",res.data.dp)
                     navigate("/chatmain")
                 }
         }

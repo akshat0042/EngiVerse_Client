@@ -13,7 +13,8 @@ import Indipro from"./components/ecom/indiproduct";
 import MainE from "./components/ecom/MainE";
 import Cart from "./components/ecom/cart";
 import Settings from "./components/others/settings";
-import Sidebar from "./components/chat/Sidebar";
+import Chatadmin from "./components/chat/Chatadmin";
+
 const App = ()=> {
   return(
     
@@ -27,13 +28,13 @@ const App = ()=> {
           <Route path="/logInSkip" element={<Login/>}></Route>
           <Route path="/productadd" element={<ProductAdd/>}></Route>
           <Route path="/ecomhome" element={<EcomHome/>}></Route>
-          <Route path="/sidebar" element={<Sidebar/>}></Route>
           <Route path="/productshow" element={<Productshow/>}></Route>
           <Route path="/chatmain" element={<Chatmain/>}></Route>
           <Route path="/indip" element={<Indipro/>}></Route>
           <Route path="/Ecom" element={<MainE/>}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
           <Route path="/setting" element={<Settings/>}></Route>
+          <Route path="/Chatadmin" element={<Chatadmin/>}></Route>
         </Routes>
       </div>
     </Router>
