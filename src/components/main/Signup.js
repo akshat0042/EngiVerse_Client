@@ -46,13 +46,13 @@ const Signup = ()=>{
 
    
 
-    const Loggin = async(event)=>{
+    const signuup = async(event)=>{
         event.preventDefault()
         console.log(data)
         console.log(sessionStorage.getItem("phone"))
         
         try{
-            res = await aurthAxios.post("http://localhost:5000/user/signUp",data)
+            res = await aurthAxios.post("http://localhost:5000/user/addHackathon",data)
             // window.location.reload(false)
             console.log(data)
             console.log(res)
@@ -150,7 +150,7 @@ const Signup = ()=>{
         //     return
         // }
 
-         Loggin()
+         signuup()
     }
     const signUUp = ()=>{
         navigate("/login")
@@ -276,7 +276,7 @@ const Signup = ()=>{
                                 <div className="w-full h-[5rem] -mt-[3%] flex flex-row text-right">
                                     <button className="bg-[#9b9b9b] h-[3rem] mr-7 mt-3 text-white p-3 w-[12rem] rounded-md hover:bg-[#838383] " onClick={changeP}>Previous Page</button>
                                     <div className="w-full">
-                                        <button className="bg-[#0da100] h-[3rem] mr-7 mt-3 text-white p-3 w-[8rem] rounded-md hover:bg-[#19bb19] " onClick={Loggin}>Signup</button>
+                                        <button className="bg-[#0da100] h-[3rem] mr-7 mt-3 text-white p-3 w-[8rem] rounded-md hover:bg-[#19bb19] " onClick={signuup}>Signup</button>
                                     </div>    
                                 </div>
                             </>)}

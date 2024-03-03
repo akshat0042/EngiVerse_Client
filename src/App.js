@@ -14,6 +14,8 @@ import MainE from "./components/ecom/MainE";
 import Cart from "./components/ecom/cart";
 import Settings from "./components/others/settings";
 import Chatadmin from "./components/chat/Chatadmin";
+import Adminlogin from "./components/main/Adminlogin";
+
 
 const App = ()=> {
   return(
@@ -35,6 +37,7 @@ const App = ()=> {
           <Route path="/cart" element={<Cart/>}></Route>
           <Route path="/setting" element={<Settings/>}></Route>
           <Route path="/Chatadmin" element={<Chatadmin/>}></Route>
+          <Route path="/Loginadmin" element={<Adminlogin/>}></Route>
         </Routes>
       </div>
     </Router>

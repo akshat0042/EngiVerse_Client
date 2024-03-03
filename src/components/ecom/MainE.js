@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react"; 
 import axios from "axios"
 import { MdNavigateNext } from "react-icons/md";
-import image1 from "../images/loginbabla.svg"; // Import your images
-import image2 from "../images/random.jpg";
-import image3 from "../images/t.png";
-import image4 from "../images/back.jpeg";
-import image5 from "../images/qwer.png";
-import image6 from "../images/rgsdfgsdfg.jpg";
+// import image1 from "../images/loginbabla.svg"; // Import your images
+// import image2 from "../images/random.jpg";
+// import image3 from "../images/t.png";
+// import image4 from "../images/back.jpeg";
+// import image5 from "../images/qwer.png";
+// import image6 from "../images/rgsdfgsdfg.jpg";
 import rod from "../images/rod.jpg"
 import Screws from "../images/screws.webp"
 import Thermal from "../images/thermal.webp"
@@ -28,10 +28,16 @@ const MainE = () => {
       
     const [value, setValue] = React.useState([20, 37000]);
     const [imageSrc, setImageSrc] = useState("");
-      
+    const step = 1000;
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+      
+    const marks = Array.from({ length: 51 }, (_, index) => ({
+        value: index * step,
+        label: index % 5 === 0 ? `${index * step}` : '',
+      }));
       
     // Function to handle slideshow animation
     const token=sessionStorage.getItem("token")
@@ -61,7 +67,6 @@ const MainE = () => {
       },[])
       
 
-    let imgcounter=0
     const imga=(yeet)=>{
         if(yeet==="Driller"){
             return Driller
@@ -90,29 +95,9 @@ const MainE = () => {
         
     }
 
-const slideshowImages = [image1, image2, image3, image4, image5, image6];
-
-// State for slideshow
-const [currentSlide, setCurrentSlide] = useState(0);
-
-// Function to handle slideshow animation
-
-
-const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slideshowImages.length);
-  };
-
-  // Function to go to the previous slide
-  const prevSlide = () => {
-    setCurrentSlide(
-      (prevSlide) => (prevSlide - 1 + slideshowImages.length) % slideshowImages.length
-    );
-  };
-
-
 return (
         <div className="flex flex-row">
-            <div className="w-48 bg-[#292A2B] h-screen flex flex-col p-1">
+            <div className="w-48 bg-[#1E1F22] h-screen flex flex-col p-1">
                 
                 <div className="h-16 w-full p-2">
                     {/* <img src={logo}></img> */}
@@ -152,45 +137,23 @@ return (
                             valueLabelDisplay="auto"
                             getAriaValueText={valuetext}
                             max={50000}
+                            step={step}
+                            marks={marks}
                         />
-                        </Box>
+                    </Box>
                 </div>
             </div>
 
-            <div className="flex flex-col w-screen h-screen bg-neutral-600">
+            <div className="flex flex-col w-screen h-screen ">
             <Searchbar/>
 
-                <div className="h-full w-full p-3 bg-[#B9B9B9] overflow-y-auto">
-                    <div className="flex flex-row slideshow h-[30rem]">
-                        <button
-                            className="top-[16rem] left-[13rem] w-[10%] bg-[#B9B9B9] p-2 rounded-full"
-                            onClick={prevSlide}
-                        >
-                            Previous
-                        </button>
-                        <div className="w-[80%] flex flex-row justify-between">
-                            {slideshowImages.slice(currentSlide, currentSlide + 2).map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={image}
-                                    alt={`slide-${currentSlide + index}`}
-                                    className="w-[50%] h-full object-cover"
-                                />
-                            ))}
-                        </div>
-                        <button
-                            className="bg-[#B9B9B9] top-[16rem] w-[10%] right-[2rem] p-2 rounded-full"
-                            onClick={nextSlide}
-                        >
-                            <MdNavigateNext />
-                        </button>
-                    </div>
-                    <div className="ml-4 mt-24 overflow-y-auto flex flex-wrap">
+                <div className="h-full w-full p-3 bg-[#2E2F32] overflow-y-auto">
+                    
+                    <div className="ml-4  overflow-y-auto flex flex-wrap">
                         {prod.map((item)=>(
-                            <div className="h-[27rem] w-[17rem] m-6 bg-[#e8e8e8] rounded-lg hover:shadow-xl border border-gray-500 shadow-sm relative flex flex-col">
+                            <div className="h-[25rem] w-[17rem] m-4 bg-[#e8e8e8] rounded-lg hover:shadow-xl border border-gray-500 shadow-sm relative flex flex-col">
                                 <div className="h-[17rem] w-full bg-slate-950 rounded-lg">
                                     <div className="h-full w-full">
-                                        
                                         <img src={imga(item.productName)} className="w-full h-full rounded-md"></img> 
                                     </div>
                                 </div>
@@ -199,6 +162,14 @@ return (
                                     <div className="text-sm">Price: {item.productPrice}</div>
                                     <div className="text-sm">Catagory: {item.productCat}</div>
                                     <div className="text-xs">Description: {item.productDesc}</div>
+                                </div>
+                                <div className=" mt-1 flex flex-row-reverse ">
+                                    <button className="bg-green-400 w-fit mr-1 rounded-md px-4 p-2">
+                                        cart
+                                    </button>
+                                    <button className="bg-[#7d7d7d] w-fit mr-1 rounded-md p-2">
+                                        check out
+                                    </button>
                                 </div>
                             </div>
                         ))}
