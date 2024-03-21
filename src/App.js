@@ -6,8 +6,6 @@ import Signup from "./components/main/Signup";
 import Origin from "./components/main/Origin";
 import ProductAdd from "./components/ecom/productadd";
 import EcomHome from "./components/others/ecomHome";
-// import Sidebar from "./components/others/Sidebar";
-import Productshow from "./components/ecom/productshow";
 import Chatmain from "./components/chat/Chatmain";
 import Indipro from"./components/ecom/indiproduct";
 import MainE from "./components/ecom/MainE";
@@ -15,7 +13,6 @@ import Cart from "./components/ecom/cart";
 import Settings from "./components/others/settings";
 import Chatadmin from "./components/chat/Chatadmin";
 import Adminlogin from "./components/main/Adminlogin";
-
 
 const App = ()=> {
   return(
@@ -30,7 +27,6 @@ const App = ()=> {
           <Route path="/logInSkip" element={<Login/>}></Route>
           <Route path="/productadd" element={<ProductAdd/>}></Route>
           <Route path="/ecomhome" element={<EcomHome/>}></Route>
-          <Route path="/productshow" element={<Productshow/>}></Route>
           <Route path="/chatmain" element={<Chatmain/>}></Route>
           <Route path="/indip" element={<Indipro/>}></Route>
           <Route path="/Ecom" element={<MainE/>}></Route>

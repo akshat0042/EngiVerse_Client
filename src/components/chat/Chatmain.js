@@ -37,6 +37,8 @@ import {IoMegaphone} from "react-icons/io5"
 import {IoAddSharp} from "react-icons/io5"
 import {CiSettings} from "react-icons/ci"
 import {IoMdCart} from "react-icons/io"
+import { FaAngleDown } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Chatmain = () => {
     const navigate = useNavigate()
@@ -90,6 +92,7 @@ const Chatmain = () => {
     }
 
     const [chatId, setChatId] = useState([])
+    const [prof, setProf] = useState(false);
     const [chatName, setChatName] = useState([])
     const [fetchChat, setFetchChat] = useState([])
     const [fetchGen, setFetchGen] = useState([])
@@ -114,6 +117,7 @@ const Chatmain = () => {
     const [isHackathon, setIsHackathon] = useState(false)
     const [hackathon, setHackathon] = useState()
     const [GetBroadcast, setGetBroadcast] = useState()
+    const [position, setPosition] = useState({ x: 0, y: 0 });
     const [broadcast, setBroadcast] = useState({
         context: "",
         require: "",
@@ -151,16 +155,6 @@ const Chatmain = () => {
     const [newMsgGen, setNewMsgGen] = useState({
         content: ""
     });
-
-    const frndList = () => {
-        if (data.gtype != "0") {
-            // console.log(data.gtype)
-            setListV(false)
-        }
-        if (data.gtype == "0") {
-            setListV(true)
-        }
-    }
 
     const sendMessage = async () => {
 
@@ -341,7 +335,7 @@ const Chatmain = () => {
     )
 
     const SelfPro = (Dp) => {
-        console.log(Dp)
+        // console.log(Dp)
         if (Dp === "1") {
             return user1
         } else if (Dp === "2") {
@@ -384,13 +378,12 @@ const Chatmain = () => {
         }
 
     }
+    
     useEffect(()=>{
-//        setFetchGen([])
-//        setIntroduntion([])
-//        setGetBroadcast([])
         setFetchGen(null)
         setPolls([])
     },[selectedCommunity])
+
     const ChangeIntro = () => {
         if (!introduction) {
             setIntroduntion((prevSelected) => !prevSelected)
@@ -451,6 +444,13 @@ const Chatmain = () => {
         console.log(res)
         setIsOpen(false)
     }
+
+    const delem = async (id) => {
+        let res = await authAxios.post("/delemsg", id)
+        console.log(res)
+        setIsOpen(false)
+    }
+
     const getBroadcast = async () => {
         let res = await authAxios.post("/getBroadcast")
         setGetBroadcast(res.data.data)
@@ -486,6 +486,11 @@ const Chatmain = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const delemsg =  (e) => {
+        setProf(!prof);
+        setPosition({ x: e.clientX, y: e.clientY });
     }
 
     const addUser = (id) => {
@@ -779,34 +784,39 @@ const Chatmain = () => {
                                            class="bg-gray-50 border opacity-80 border-gray-300 text-[#ffffff] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[13rem] p-1.5  dark:bg-[#1E1F22] dark:border-gray-700 dark:placeholder-gray-100 dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                                 </div>
                             </div>
-                            <div
-                                className={"bg-[#2B2D31] h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
-                                {chat.map((data) => (<div
-                                    className="yeetfont text-[#eaeaea] flex flex-row chat-item text-lg w-full mt-2 h-[3.2rem] p-1 rounded-md text-left"
-                                    onClick={() => {
-                                        handelChatClick(data._id, data.users[1].firstName)
-                                    }}>
-                                    <div className="w-[30%] h-full rounded-full  bg-white">
-                                        <img className="rounded-full" src={OtherPro(data)}></img>
-                                    </div>
-                                    <div className="ml-1 flex flex-col w-full">
-                                        {data.isGroupChat ? (<>
-                                            <div className="overflow-x-clip"> {data.chatName}</div>
-                                        </>) : (<></>)}
-                                        {!data.isGroupChat ? (<>
-                                            <div> {data.users[1].firstName}</div>
-                                        </>) : (<></>)}
-                                        <div className="text-xs -mt-1 flex flex-row">
-                                            <div className="w-[4rem] overflow-x-auto no-scrollbar">
-                                                 {/*{data.latestMessage.content[0]}*/}
-                                            </div>
-                                            <div className="w-[6rem%] ml-1 text-xs ">
-                                                 {/*<div> {extractDateTime(data.latestMessage.createdAt)} {extractedDateTimeString}*/}
-                                                 {/*</div>*/}
+                            <div className={"bg-[#2B2D31] h-full flex flex-col-reverse border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
+                                <div className="h-full flex flex-col">
+                                    {chat.map((data) => (<div
+                                        className="yeetfont text-[#eaeaea] flex flex-row chat-item text-lg w-full mt-2 h-[3.2rem] p-1 rounded-md text-left"
+                                        onClick={() => {
+                                            handelChatClick(data._id, data.users[1].firstName)
+                                        }}>
+                                        <div className="w-[30%] h-full rounded-full  bg-white">
+                                            <img className="rounded-full" src={OtherPro(data)}></img>
+                                        </div>
+                                        <div className="ml-1 flex flex-col w-full">
+                                            {data.isGroupChat ? (<>
+                                                <div className="overflow-x-clip"> {data.chatName}</div>
+                                            </>) : (<></>)}
+                                            {!data.isGroupChat ? (<>
+                                                <div> {data.users[1].firstName}</div>
+                                            </>) : (<></>)}
+                                            <div className="text-xs -mt-1 flex flex-row">
+                                                <div className="w-[4rem] overflow-x-auto no-scrollbar">
+                                                    {/*{data.latestMessage.content[0]}*/}
+                                                </div>
+                                                <div className="w-[6rem%] ml-1 text-xs ">
+                                                    {/*<div> {extractDateTime(data.latestMessage.createdAt)} {extractedDateTimeString}*/}
+                                                    {/*</div>*/}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>))}
+                                    </div>))}
+                                </div>
+                                
+                            </div>
+                            <div className="h-[4rem] flex items-center text-[#ffffff] " onClick={ecomm}>
+                            <div className="ml-2"><FaCartShopping color="white" size={"20px"}/></div> <div className="ml-2">E-commerce</div>
                             </div>
                         </>) : (<>
 
@@ -910,17 +920,28 @@ const Chatmain = () => {
                                                     </div>
                                                 </div>
                                             ) : (<div className="flex items-end justify-end">
-                                                <div
-                                                    className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-end">
+                                                <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-end">
                                                     <div>
-                                                        <span
-                                                            className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
-                                                            {data.content[0] ? (data.content[0]) : (null)}<br/>
+                                                        <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
+                                                            {data.content[0] ? (data.content[0]) : (null)}
+                                                            <button className="h-3 w-6 ml-1 -mr-6 " onClick={(e)=>delemsg(e)}>
+                                                            <FaAngleDown />
+
+                                                            </button>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>)}
-
+                                             {prof && (
+                                                <div
+                                                className="flex flex-col z-10 absolute w-[4rem] h-[1.5rem] bg-slate-100"
+                                                style={{ top: `${position.y-30}px`, left: `${position.x-340}px` }}
+                                                >
+                                                    <button className=" shadow-xl h-full text-red-600" onClick={()=>delem()}>
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>))}
                                 </div>
                             </div>

@@ -40,7 +40,7 @@ const Signup = ()=>{
     const aurthAxios=axios.create({
         baseURL:"http://localhost:5000/",
         headers:{
-            Authorization:`bearer ${sessionStorage.getItem('token')}`
+            Authorization:`Bearer ${sessionStorage.getItem('token')}`
         }
     })
 
@@ -52,10 +52,11 @@ const Signup = ()=>{
         console.log(sessionStorage.getItem("phone"))
         
         try{
-            res = await aurthAxios.post("http://localhost:5000/user/addHackathon",data)
+            res = await aurthAxios.post("user/signUp",data)
             // window.location.reload(false)
             console.log(data)
             console.log(res)
+            console.log("balls")
             if(res.status===200){
                 navigate("/login")
             }
@@ -262,9 +263,13 @@ const Signup = ()=>{
                                         }} >
                                          <option value="0" >please select an option</option>
                                          <option value="Mechanical" >Mechenical Engineering</option>
-                                         <option value="ComputerScience" >Computer Science</option>
-                                         <option value="Chemical" >Chemical Engineering</option>
-                                         <option value="Biomedical" >Biomedical Engineering</option>
+                                            <option value="Electircal" >Electircal Engineering</option>
+                                         <option value="Software" >Computer Science</option>
+                                         <option value="Environmental" >Chemical Engineering</option>
+                                         <option value="Biomengineer" >Biomedical Engineering</option>
+                                            <option value="Civil" >Civil Engineering</option>
+                                            <option value="Robotics" >Robotics Engineering</option>
+                                            <option value="Aerospace" >Aerospace Engineering</option>
                                      </select>
                                     </div>
                                     <div className="w-[20%]"></div>

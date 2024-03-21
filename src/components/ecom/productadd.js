@@ -80,70 +80,74 @@ const ProductAdd = ()=>{
 
     return(
         <>
-        <div className="flex flex-col">
-
-            <div className="h-16 text-2xl">
-              ADD PRODUCT
+<div className="flex flex-col mx-auto max-w-md p-6 bg-white shadow-md rounded-lg">
+                <h1 className="text-2xl font-semibold mb-4">ADD PRODUCT</h1>
+                <form onSubmit={Validate}>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label htmlFor="productName" className="block mb-1">Product Name</label>
+                            <input
+                                type="text"
+                                id="productName"
+                                className="w-full border rounded-md py-2 px-3"
+                                value={data.pName}
+                                onChange={(event) => setData({ ...data, pName: event.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="productPrice" className="block mb-1">Product Price</label>
+                            <input
+                                type="text"
+                                id="productPrice"
+                                className="w-full border rounded-md py-2 px-3"
+                                value={data.pPrice}
+                                onChange={(event) => setData({ ...data, pPrice: event.target.value })}
+                            />
+                        </div>
+                        {/* Add similar structures for other input fields */}
+                        <div>
+                            <label htmlFor="productDesc" className="block mb-1">Product Description</label>
+                            <textarea
+                                id="productDesc"
+                                className="w-full border rounded-md py-2 px-3"
+                                value={data.pDesc}
+                                onChange={(event) => setData({ ...data, pDesc: event.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="productQuantity" className="block mb-1">Product Quantity</label>
+                            <input
+                                type="text"
+                                id="productQuantity"
+                                className="w-full border rounded-md py-2 px-3"
+                                value={data.pquant}
+                                onChange={(event) => setData({ ...data, pquant: event.target.value })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="productCategory" className="block mb-1">Product Category</label>
+                            <select
+                                id="productCategory"
+                                className="w-full border rounded-md py-2 px-3"
+                                value={data.pCat}
+                                onChange={(event) => setData({ ...data, pCat: event.target.value })}
+                            >
+                                <option value="0">Please select an option</option>
+                                <option value="Mechanical">Mechanical Engineering</option>
+                                <option value="ComputerScience">Computer Science</option>
+                                <option value="Chemical">Chemical Engineering</option>
+                                <option value="Biomedical">Biomedical Engineering</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md"
+                    >
+                        Add Product
+                    </button>
+                </form>
             </div>
-            <form>
-              <table className="border border-table-3">
-                <tr>
-                  <th>hollo</th>
-                  <th>input</th>
-                </tr>
-                
-                <tr>
-                  <td><lable>product Name</lable></td>
-                  <td><input type="text" value={data.pName} onChange={(event)=>{
-                      setData({...data,pName:event.target.value})
-                  }}/></td>
-                </tr>
-
-                <tr>
-                  <td><lable>product Price</lable></td>
-                  <td><input type="text" value={data.pPrice} onChange={(event)=>{
-                      setData({...data,pPrice:event.target.value})
-                  }}/></td>
-                </tr>
-
-                <tr>
-                  <td><lable>product image</lable></td>
-                  <td><input type="file" accept="image/*"></input></td>
-                  <br/>
-                </tr>
-
-                <tr>
-                  <td><lable>Product description</lable></td>
-                  <td><textarea type="text" value={data.pDesc} onChange={(event)=>{
-                      setData({...data,pDesc:event.target.value})
-                  }}/></td>
-                </tr>
-
-                <tr>
-                  <td> <lable>Product Quantity</lable></td>
-                  <td>  <input type="text" value={data.pquanttity} onChange={(event)=>{
-                      setData({...data,pquant:event.target.value})
-                  }}/></td>
-                </tr>
-
-                <tr>
-                  <td><lable>product catagory</lable></td>
-                  <td><select name="cars" id="cars" value={data.pCat} onChange={(event)=>{
-                      setData({...data,pCat:event.target.value})
-                  }}>
-                      <option value="0" >please select an option</option>
-                      <option value="Mechanical" >Mechenical Engineering</option>
-                      <option value="ComputerScience" >Computer Science</option>
-                      <option value="Chemical" >Chemical Engineering</option>
-                      <option value="Biomedical" >Biomedical Engineering</option>
-                  </select></td>
-                  </tr>
-                  <tr> 
-                  <td colSpan={2}> <button onClick={Validate}>post</button></td>
-                  </tr>
-                </table>
-            </form>
-        </div>
         </>
     )
 }
