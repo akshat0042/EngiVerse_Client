@@ -53,6 +53,7 @@ const Login = ()=>{
                     sessionStorage.setItem("token",res.data.token)
                     sessionStorage.setItem("Dp",res.data.dp)
                     sessionStorage.setItem("Uname",res.data.userName)
+                    sessionStorage.setItem("Email",res.data.email)
                     navigate("/chatmain")
                 }
         }

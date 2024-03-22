@@ -15,49 +15,49 @@ import user8 from "../images/user8.png"
 
 
 const Side=()=>{
-const navigate =useNavigate()
-const [prof, setProf] = useState(false);
-const [position, setPosition] = useState({ x: 0, y: 0 });
-const dp = sessionStorage.getItem("Dp")
-const name = sessionStorage.getItem("Uname")
+    const navigate =useNavigate()
+    const [prof, setProf] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const dp = sessionStorage.getItem("Dp")
+    const name = sessionStorage.getItem("Uname")
 
-const profile = (e) => {
-  setProf(!prof);
-  setPosition({ x: e.clientX, y: e.clientY });
-};
+    const profile = (e) => {
+    setProf(!prof);
+    setPosition({ x: e.clientX, y: e.clientY });
+    };
 
-const Cart=()=>{
-    navigate("/cart")
-}
-
-const sett=()=>{
-    navigate("/setting")
-}
-
-const signout=()=>{
-    navigate("/login")
-    sessionStorage.clear()
-}
-
-const OtherPro = (dp) => {
-    if (dp === "1") {
-        return user1
-    } else if (dp === "2") {
-        return user2
-    } else if (dp === "3") {
-        return user3
-    } else if (dp === "4") {
-        return user4
-    } else if (dp === "5") {
-        return user5
-    } else if (dp === "6") {
-        return user6
-    } else if (dp === "7") {
-        return user7
-    } else if (dp === "8") {
-        return user8
+    const Cart=()=>{
+        navigate("/cart")
     }
-}
+
+    const sett=()=>{
+        navigate("/setting")
+    }
+
+    const signout=()=>{
+        navigate("/login")
+        sessionStorage.clear()
+    }
+
+    const OtherPro = (dp) => {
+        if (dp === "1") {
+            return user1
+        } else if (dp === "2") {
+            return user2
+        } else if (dp === "3") {
+            return user3
+        } else if (dp === "4") {
+            return user4
+        } else if (dp === "5") {
+            return user5
+        } else if (dp === "6") {
+            return user6
+        } else if (dp === "7") {
+            return user7
+        } else if (dp === "8") {
+            return user8
+        }
+    }
 
     return(
         <div className=" flex flex-row h-20 p-4 w-full bg-[#ffffff]">

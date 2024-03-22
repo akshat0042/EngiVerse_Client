@@ -21,6 +21,7 @@ const Settings = () => {
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const dp = sessionStorage.getItem("Dp")
   const name = sessionStorage.getItem("Uname")
+  const email = sessionStorage.getItem("Email")
 
   const handleEditClick = (field) => {
     switch (field) {
@@ -140,9 +141,9 @@ const back=()=>{
           Email
         </label>
         {isEditingEmail ? (
-          <input type="email" id="email" name="email" className="mt-1 p-2 border rounded-md w-full" />
+          <input type="email" id="email" name="email" value={email} className="mt-1 p-2 border rounded-md w-full" />
         ) : (
-          <div><input type="email" id="email" name="email" disabled={true} className=" mt-1 p-2 border rounded-md w-full" /></div>
+          <div><input type="email" id="email" name="email" value={email} disabled={true} className=" mt-1 p-2 border rounded-md w-full" /></div>
         )}
         
       </div>
@@ -168,15 +169,7 @@ const back=()=>{
         )}
         
       </div>
-
-      
-      <div className="mb-4">
-        <a href="#" className="text-blue-500 hover:underline">
-          Manage Wishlist
-        </a>
-      </div>
-
-     
+           
       <div className="flex justify-between mb-4">
         <button className="text-red-500 hover:underline">Delete Account</button>
         <button className="bg-blue-500 text-white px-2 py-2 rounded-md hover:bg-blue-600">

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios, { Axios } from "axios";
 import '../others/media.css';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom"
 import grpb from "../images/comgrad.jpg"
 import { IoMegaphone } from "react-icons/io5";
 import { IoAddSharp } from "react-icons/io5";
@@ -14,10 +14,13 @@ import lolo5 from "../images/lolo5.jpg"
 import lolo6 from "../images/lolo6.jpg"
 import lolo7 from "../images/lolo7.jpg"
 import lolo8 from "../images/commnity.jpg"
+import { BsGraphUp } from "react-icons/bs";
 import {GiPlagueDoctorProfile} from "react-icons/gi"
+import { IoMdAdd } from "react-icons/io";
+import logo from "../images/logo.png"
 
 const Chatadmin=()=>{
-    
+    const navigate = useNavigate()
     const token = sessionStorage.getItem("token")
     const messagesRef = useRef(null);
     const baseURL = "http://localhost:5000/user"
@@ -44,6 +47,8 @@ const Chatadmin=()=>{
     const [fetchChat, setFetchChat] = useState([])
     const [isBroadcast, setIsBroadcast] = useState(false)
     const [isHackathon, setIsHackathon] = useState(false)
+    const [Prodrepo, setProdRepo] = useState(false)
+    const [orderRepo, setOrderRepo] = useState(false)
     const [hackathon, setHackathon] = useState()
     const [GetBroadcast, setGetBroadcast] = useState()
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -273,7 +278,7 @@ const Chatadmin=()=>{
 
     const removehim = async (id) => {
         console.log(id)
-        // const res = await authAxios.post(`/removeYser/${id}`)
+        // const res = await authAxios.post(`/removeUser/${id}`)
     }
 
     const ChangeHackathon = async () => {
@@ -309,6 +314,25 @@ const Chatadmin=()=>{
             console.log(res)
         }catch(e){
             console.log(e)
+        }
+    }
+
+    const prod=async()=>{
+        try{
+            res =await authAxios.post("http://localhost:5000/user/productReports")
+            console.log(res)
+        }
+        catch(e){
+
+        }
+    }
+    const Order=async()=>{
+        try{
+            res =await authAxios.post("http://localhost:5000/user/orderReports")
+            console.log(res)
+        }
+        catch(e){
+
         }
     }
     
@@ -360,6 +384,8 @@ const Chatadmin=()=>{
 
     useEffect(() => {
         fetchaComm()
+        prod()
+        Order()
     }, [])
 
     useEffect(() => {
@@ -368,7 +394,28 @@ const Chatadmin=()=>{
         }
     }, [fetchGen]);
 
-    console.log(selectedCommunity)
+    const Addprod=()=>{
+        console.log("dsdf")
+        navigate("/productadd")
+    }
+
+    useEffect(() => {
+        localStorage.clear()
+    }, [])
+
+    const Repo=()=>{
+        navigate("/reports")
+    }
+    // console.log(selectedCommunity)
+
+    const prodre=()=>{
+        setProdRepo(true)
+        setOrderRepo(false)
+    }
+    const orderre=()=>{
+        setProdRepo(false)
+        setOrderRepo(true)
+    }
 
     return(
         <div>
@@ -414,38 +461,17 @@ const Chatadmin=()=>{
                                 </div>
                             </div>
                             <div className={"bg-[#2B2D31] h-full flex-col border-r border-[#2c2e30] overscroll-contain overflow-auto scrolling-touch"}>
-                                {/* {chat.map((data) => (<div
-                                    className="yeetfont text-[#eaeaea] flex flex-row chat-item text-lg w-full mt-2 h-[3.2rem] p-1 rounded-md text-left"
-                                    onClick={() => {
-                                        handelChatClick(data._id, data.users[1].firstName)
-                                    }}>
-                                    <div className="w-[30%] h-full rounded-full  bg-white">
-                                        <img className="rounded-full" src={OtherPro(data)}></img>
-                                    </div>
-                                    <div className="ml-1 flex flex-col w-full">
-                                        {data.isGroupChat ? (<>
-                                            <div className="overflow-x-clip"> {data.chatName}</div>
-                                        </>) : (<></>)}
-                                        {!data.isGroupChat ? (<>
-                                            <div> {data.users[1].firstName}</div>
-                                        </>) : (<></>)}
-                                        <div className="text-xs -mt-1 flex flex-row">
-                                            <div className="w-[4rem] overflow-x-auto no-scrollbar"> */}
-                                                 {/*{data.latestMessage.content[0]}*/}
-                                            {/* </div>
-                                            <div className="w-[6rem%] ml-1 text-xs "> */}
-                                                 {/*<div> {extractDateTime(data.latestMessage.createdAt)} {extractedDateTimeString}*/}
-                                                 {/*</div>*/}
-                                            {/* </div>
-                                        </div>
-                                    </div>
-                                </div>))} */}
+                                <div className="h-[3rem] flex flex-row items-center w-full text-white chat-item rounded " onClick={Addprod}>
+                                    <IoMdAdd size={"26px"}/><div className="ml-1"> Add Products</div>
+                                </div>
+                                <div className="h-[3rem] flex flex-row items-center pl-1 w-full text-white chat-item rounded " onClick={checkChat}>
+                                    <BsGraphUp size={"26px"}/><div className="ml-2"> Reports</div>
+                                </div>
                             </div>
                         </>) : (<>
 
-                            <div
-                                className={" text-center p-2 text-white bg-[#2B2D31] border-b border-r border-[#2c2e30] "}>
-                                <div>
+                            <div className={" text-center p-2 text-white bg-[#2B2D31] border-b border-r border-[#2c2e30] "}>
+                                <div className="">
                                     {selectedCommunity.name}
                                 </div>
                             </div>
@@ -498,77 +524,91 @@ const Chatadmin=()=>{
                     <div className={"flex flex-col w-screen"}>
 
                     {seeChat ? (
-                    <>
-                            {/* <div
-                                className={"bg-gradient-to-r from-[#313338] to-[#333333] opacity-80 p-[0.80rem] shadow-2xl text-white w-full text-center"}>
-
-                                {sessionStorage.getItem("name") ? (<div>
-                                    {sessionStorage.getItem("name")}
-                                </div>) : (
-                                    <div>
-                                        EngiVerse
-                                    </div>
-                                )}
-                            </div>
-                            <div
-                                className={" h-[92.9%] bg-[#cacaca] rounded-se-full  backdrop-blur-yeet hover:backdrop-blur-sm w-full flex flex-col-reverse p-3"}>
-                                <div className="flex">
-                                    <input placeholder="Type your message..."
-                                           className="focus:ring-gray-900 bg-[#202C33] focus:border-gray-900 w-full focus:placeholder-gray-400 text-gray-100 placeholder-gray-300 pl-10 rounded-full py-3 border-gray-200"
-                                           value={newMessage.content}
-                                           onChange={(event) => {
-                                               setNewMessage({content: event.target.value})
-                                           }}
-                                           onKeyDown={handleKeyDown}
-                                    />
-                                </div>
-                                <div
-                                    className={"p-3 shadow-lg hover:shadow-2xl rounded-md transition-shadow mb-4 h-full w-full overflow-y-auto no-scrollbar"}
-                                    ref={messagesRef}>
-                                    {fetchChat.map((data) => (
+                        <><div className="w-full h-full">
+                                <div className={"bg-gradient-to-r flex from-[#6f6f6f] to-[#6f6f6f] opacity-80 p-[0.80rem] shadow-2xl text-white justify-center w-full text-center"}>
                                         <div>
-                                            {!data.status ? (
-                                                <div className="flex items-end">
-                                                    <div
-                                                        className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                                                        <div className="flex flex-col">
-                                                            <div
-                                                                className="h-[1rem] px-1 z-30 text-white rounded bg-[#1E1F22] mt-1 w-fit ">
-                                                                {data.firstName}
-                                                            </div>
-                                                            <span
-                                                                className="px-4 py-2 -mt-2 inline-block rounded-tl-lg rounded-r-lg  bg-[#1E1F22] text-[#ffffff]">
-                                                            {data.content[0] ? (data.content[0]) : (null)}<br/>
-                                                        </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ) : (<div className="flex items-end justify-end">
-                                                <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-end">
-                                                    <div>
-                                                        <span className="px-4 py-2 mt-1 inline-block rounded-l-lg rounded-tr-lg bg-gray-200 text-[#000000]">
-                                                            {data.content[0] ? (data.content[0]) : (null)}
-                                                            <button className="h-3 w-6 ml-1 -mr-6 " onClick={(e)=>delemsg(e)}>
-                                                            <FaAngleDown />
-
-                                                            </button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>)}
-                                             {prof && (
-                                                <div
-                                                className="flex flex-col z-10 absolute w-[4rem] h-[1.5rem] bg-slate-100"
-                                                style={{ top: `${position.y-20}px`, left: `${position.x-320}px` }}
-                                                >
-                                                    <button className=" shadow-xl h-full text-red-600" onClick={()=>delem()}>
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            )}
-                                        </div>))}
+                                            <img src={logo}></img>
+                                        </div>
                                 </div>
-                            </div> */}
+                                <div className={" h-[87.3%] bg-[#cacaca] rounded-se-full  backdrop-blur-yeet hover:backdrop-blur-sm w-full flex flex-col p-3"}>
+                                    <div className="w-[100%] h-[10%] bg-white p-1 flex flex-row">
+                                        <button className="w-1/2 flex justify-center items-center mr-1 h-full " onClick={prodre}>
+                                            <div> Product Report</div>
+                                        </button>
+                                        <button className="w-1/2 flex justify-center items-center h-full " onClick={orderre}>
+                                            <div> Order Report</div>
+                                        </button>
+
+                                    </div>
+                                    {Prodrepo?(<><div className="w-full h-full flex items-center justify-center">
+                                        <div className="h-[30rem] w-[55rem] bg-white">
+                                            <table >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Product Id</th>
+                                                        <th>Product Name</th>
+                                                        <th>Product Stock</th>
+                                                        <th>Product Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>001</td>
+                                                        <td>Product A</td>
+                                                        <td>10</td>
+                                                        <td>$20.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>002</td>
+                                                        <td>Product B</td>
+                                                        <td>15</td>
+                                                        <td>$25.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>003</td>
+                                                        <td>Product C</td>
+                                                        <td>5</td>
+                                                        <td>$15.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>004</td>
+                                                        <td>Product D</td>
+                                                        <td>20</td>
+                                                        <td>$30.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>005</td>
+                                                        <td>Product E</td>
+                                                        <td>8</td>
+                                                        <td>$18.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>006</td>
+                                                        <td>Product F</td>
+                                                        <td>12</td>
+                                                        <td>$22.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>007</td>
+                                                        <td>Product G</td>
+                                                        <td>3</td>
+                                                        <td>$12.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>008</td>
+                                                        <td>Product H</td>
+                                                        <td>25</td>
+                                                        <td>$35.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    </>):(<></>)}
+                                    {orderRepo?(<>
+                                    </>):(<></>)}
+                                </div>
+                            </div>
                         </>
                         ) : (<>
                             <div
@@ -576,8 +616,13 @@ const Chatadmin=()=>{
                                 {localStorage.getItem("comsele") ? (<div>
                                     {localStorage.getItem("comsele")}
                                 </div>) : (
-                                    <div>
-                                        EngiVerse
+                                    <div className="">
+                                        <div className="bg-gradient-to-r from-[#313338] to-[#333333] opacity-80 p-[0.80rem] shadow-2xl text-white w-full text-center">
+                                            EngiVerse
+                                        </div>
+                                        <div>
+
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -921,13 +966,21 @@ const Chatadmin=()=>{
 
             {remP ? (<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md"}>
                 <div className={" bg-[#1E1F22] flex flex-col h-[85%] w-[50%] p-[.3rem]  rounded-lg shadow-2xl relative z-10"} >
-                    <div className="h-[9%] text-2xl"> Remove Users</div>
-                    <div className="h-full flex flex-wrap p-2">
+                    <div className="h-[9%] text-2xl text-white"> Remove Users</div>
+                    <div className="h-full overflow-y-auto no-scrollbar flex flex-wrap p-2">
                         {selectedCommunity.users.map((data)=>(
-                            <div className="h-[4rem] rounded flex flex-row-reverse items-center w-[18rem] ml-2 bg-[#5e5e5e]">
+                            <div className="h-[4rem] rounded flex flex-row-reverse items-center w-[18rem] mt-2 ml-2 bg-[#5e5e5e]">
                                 <button className="h-[2.2rem] rounded-md w-[6rem] m-2 bg-red-500" onClick={()=>removehim(data)}>
                                     Kick
                                 </button>
+                                <div className="h-full w-full flex flex-col">
+                                    <div className="text-left flex flex-row w-full text-xl">
+                                        {data.firstName}<div className="ml-1">{data.lastName}</div>
+                                    </div>
+                                    <div className="text-left flex flex-row w-full text-l">
+                                        {data.engineerType1}
+                                    </div>
+                                </div>
                             </div>)
                         )}
                         

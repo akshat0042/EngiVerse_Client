@@ -33,7 +33,10 @@ const Chatmain = () => {
     })
 //    const id=sessionStorage.getItem("id")
     // console.log(id)
-
+    const [data,setData] = useState({
+        pName:"",
+        pCount:""
+    })
     const imgMap = {
         "Driller": Driller,
         "Screws": Screws,
@@ -117,9 +120,18 @@ const Chatmain = () => {
         setQuantity(newQuantity);
     };
 
-    const handleAddToCart = () => {
-        console.log("Adding to Cart");
-    };
+    const handleAddToCart = async() => {
+        setData({...data,pName:indiProd._id,pCount:quantity})
+        
+        try{
+            console.log(data)
+            let res=await authAxios.post("/user/addToCart",data)
+            sessionStorage.setItem("CartId",res.data.cart._id)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
 
     const handleAddToWishlist = () => {
         console.log("Adding to Wishlist");
@@ -150,7 +162,7 @@ const Chatmain = () => {
         }
     };
 
-    console.log(images)
+    // console.log(images)
 
     return (
         <div className="container mx-auto flex flex-col lg:flex-row items-center py-8">
@@ -184,7 +196,7 @@ const Chatmain = () => {
             </div>
             <div className="w-[97%] bg-gray-100 p-6 rounded-md">
                 <h2 className="text-2xl font-bold mb-4">{indiProd.productName}</h2>
-                <h3 className="text-gray-500 text-lg mb-2">${indiProd.productPrice}</h3>
+                <h3 className="text-gray-500 text-lg mb-2">₹{indiProd.productPrice}</h3>
                 <h3 className="text-gray-500 text-lg mb-2">{indiProd.productCat}</h3>
                 <p className="text-gray-700 mb-4 leading-relaxed">
                     {indiProd.productDesc}
@@ -213,12 +225,7 @@ const Chatmain = () => {
                         >
                             Add to Cart
                         </button>
-                        <button
-                            onClick={handleAddToWishlist}
-                            className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition duration-300"
-                        >
-                            Add to Wishlist
-                        </button>
+
                     </div>
                 ) : (
                     <p className ="text-red-500">Out of Stock</p>

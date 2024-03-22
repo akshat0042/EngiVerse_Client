@@ -80,7 +80,8 @@ const ProductAdd = ()=>{
 
     return(
         <>
-<div className="flex flex-col mx-auto max-w-md p-6 bg-white shadow-md rounded-lg">
+        <div className="h-screen w-screen flex items-center">
+            <div className="flex flex-col mx-auto w-[50rem] p-6 bg-white shadow-md rounded-lg">
                 <h1 className="text-2xl font-semibold mb-4">ADD PRODUCT</h1>
                 <form onSubmit={Validate}>
                     <div className="grid grid-cols-2 gap-4">
@@ -137,7 +138,17 @@ const ProductAdd = ()=>{
                                 <option value="ComputerScience">Computer Science</option>
                                 <option value="Chemical">Chemical Engineering</option>
                                 <option value="Biomedical">Biomedical Engineering</option>
+                                <option value="Biomedical">Electircal Engineering</option>
+                                <option value="Biomedical">Aerospace Engineering</option>
                             </select>
+                        </div>
+                        <div>
+                            <label htmlFor="productQuantity" className="block mb-1">Product Image</label>
+                            <input
+                                type="file"
+                                id="productimage"
+                                className="w-full border rounded-md py-2 px-3"
+                            />
                         </div>
                     </div>
                     <button
@@ -147,6 +158,7 @@ const ProductAdd = ()=>{
                         Add Product
                     </button>
                 </form>
+            </div>
             </div>
         </>
     )
