@@ -13,6 +13,7 @@ const App = ()=> {
         <Routes>
           <Route path="/otp" element={<Otp/>}></Route>
           <Route path="/logIn" element={<Login/>}></Route>
+          <Route path="/" element={<Login/>}></Route>
           <Route path="/signup" element={<Signup/>}></Route>
           <Route path="/chatmain" element={<Chatmain/>}></Route>
         </Routes>

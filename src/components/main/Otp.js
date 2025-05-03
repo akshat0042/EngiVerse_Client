@@ -52,6 +52,7 @@ const Otp = () => {
   // const [verify, setVerify] = useState({
   //   phone: "",
   //   otp: "",
+
   // });
 
   // let res;
