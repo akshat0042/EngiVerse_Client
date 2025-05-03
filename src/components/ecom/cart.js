@@ -111,7 +111,7 @@ const Cart = () =>{
                     {uCart?(<>
                         {uCart.map((data)=>(
                     <div className="flex items-center mb-4">
-                        <img src={imga(data.pName.productName)} alt="Product Image" className="w-16 h-16 mr-4 rounded-full"/>
+                        <img src={imga(data?.pName?.productName)} alt="Product Image" className="w-16 h-16 mr-4 rounded-full"/>
                     <div className="px-1 text-left">
                         <h2 className="text-lg font-semibold">{data.pName.productName}</h2>
                         <p className="text-sm text-gray-500">{data.pName.productCat}</p>

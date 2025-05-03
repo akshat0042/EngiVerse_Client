@@ -159,15 +159,18 @@ const Signup = ()=>{
     const changeP = ()=>{
         setPage(!page)
     }
+    const handleOtpSuccess = () => {
+        setMod(false); // Close modal if OTP is correct
+    };
 
     return(
         <>
             <div className="w-full h-screen items-start">
-                 {/* {mod?<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md fit rounded-xl"}>*/}
-                 {/*   <div className={"p-8 rounded-lg relative z-10"}>*/}
-                 {/*       <Otp/>*/}
-                 {/*   </div>*/}
-                 {/*</div>:<></>}*/}
+                  {mod?<div className={"fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md fit rounded-xl"}>
+                    <div className={"p-8 rounded-lg relative z-10"}>
+                        <Otp onSuccess={handleOtpSuccess}/>
+                    </div>
+                 </div>:<></>}
 
                 <div className="absolute right-4">
                         <img src={logo} alt="Logo" className="w-50 h-50" />
